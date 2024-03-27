@@ -15,12 +15,12 @@ import java.util.Random;
 public class QB {
     static JenaBackend backend = null;
 
-    static NodeId any = null;
     public static void QB2(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         ProgressJenaIterator.rng = new Random(2);
         ProgressJenaIterator.NB_WALKS = 1;
         JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
+            writer.println("Class,CD");
             NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
             ProgressJenaIterator sac = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, backend.any())).iterator;
             double N = sac.cardinality();

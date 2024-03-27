@@ -48,6 +48,7 @@ public class QC {
                 sumProb += 1/finalProb;
                 double estimated =( N / sumProb) * (sumProb/sadCard.cardinality());
                 writer.printf("%s,%f%n", dString, estimated);
+                i++;
             }
 
 
@@ -61,7 +62,7 @@ public class QC {
         JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
         ProgressJenaIterator.NB_WALKS = 10;
         try(PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("p,CD");
+            writer.println("Predicate,CD");
             NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
             if (watdiv == false){
                 is_a = backend.getId("<http://www.wikidata.org/prop/direct/P131>", SPOC.PREDICATE);
@@ -91,6 +92,7 @@ public class QC {
                 sumCard += finalProb/spoCard.cardinality();
                 double estimateP =( N / sumProb) * sumCard;
                 writer.printf("%s,%f%n", pString, estimateP);
+                i++;
             }
         }
 
@@ -101,7 +103,7 @@ public class QC {
         JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
         ProgressJenaIterator.NB_WALKS = 10;
         try(PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("s,CD");
+            writer.println("Subject,CD");
             NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
             if (watdiv == false){
                 is_a = backend.getId("<http://www.wikidata.org/prop/direct/P131>", SPOC.PREDICATE);
@@ -118,6 +120,7 @@ public class QC {
                 sumProb += 1/sIter.cardinality();
                 double estimateS =( N/i) * sumProb;
                 writer.printf("%s,%f%n", backend.getValue(s), estimateS);
+                i++;
             }
         }
     }
@@ -133,7 +136,7 @@ public class QC {
         NodeId classNode = backend.getId(classValue);
         ProgressJenaIterator sac = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, classNode)).iterator;
         try(PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("o,CD");
+            writer.println("Object,CD");
             int i = 0;
             double sumProb = 0;
             double sumCard = 0;
@@ -153,6 +156,7 @@ public class QC {
                 sumCard += finalProb/spoCard.cardinality();
                 double estimateO =( N / sumProb) * sumCard;
                 writer.printf("%s,%f%n", oString, estimateO);
+                i++;
             }
         }
 
