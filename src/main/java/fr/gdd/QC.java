@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.util.Random;
 
 public class QC {
-    static JenaBackend backend = null;
+
 
     static boolean watdiv = true;
     // SELECT (COUNT(DISTINCT ?d) AS ?x) ?c WHERE { ?s a ?c , ?d } GROUP BY ?c

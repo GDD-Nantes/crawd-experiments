@@ -104,7 +104,50 @@ public class SACSPO {
         }
     }
 
+    public  static void getSampleSaCSPO_CDo_GROUPBY_CLASS_dbpedia(String pathToTDB2dataset, String outputfile, Integer samplesize, String predicateValue) throws IOException {;
+        ProgressJenaIterator.rng = new Random(2);
+        try (PrintWriter writer = new PrintWriter(new FileWriter(outputfile))) {
+            writer.println("Subject,Class,Predicate,Object,CD(o)");
+            ProgressJenaIterator.NB_WALKS = 1;
+            JenaBackend backend = new JenaBackend(pathToTDB2dataset);
+            NodeId is_a = backend.getId(predicateValue, SPOC.PREDICATE);
+            NodeId graph = backend.getId("<http://example.com/dbpedia>", SPOC.GRAPH);
+            int i = 0;
+            HashMap<NodeId,Values> mapO = new HashMap<>();
+            while (i < samplesize){
+                //run the full query {?s a class ; ?p ?o .}
+                ProgressJenaIterator s_isa_cl = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, backend.any(),graph)).iterator;
+                Tuple<NodeId> s_isa_clRecord = s_isa_cl.getRandomSPO();
 
+                NodeId sId = s_isa_clRecord.get(SPOC.SUBJECT);
+                NodeId cl = s_isa_clRecord.get(SPOC.OBJECT);
+                String classValue = backend.getValue(cl);
+                String subject = backend.getValue(sId);
+                if (!mapO.containsKey(cl)) {
+                    mapO.put(cl, new Values(0, 0, 0,0));
+                }
+                Values valsO = mapO.get(cl);
+                ProgressJenaIterator sac = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, cl,graph)).iterator;
+
+                ProgressJenaIterator spo2 = (ProgressJenaIterator) ((LazyIterator) backend.search(sId, backend.any(), backend.any(),graph)).iterator;
+                Tuple<NodeId> spo2Record = spo2.getRandomSPO();
+
+                NodeId pId = spo2Record.get(SPOC.PREDICATE);
+                String predicate = backend.getValue(pId);
+                NodeId oId = spo2Record.get(SPOC.OBJECT);
+                String object = backend.getValue(oId);
+
+                ProgressJenaIterator spo3 = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), backend.any(), oId,graph)).iterator;
+                valsO.update((sac.cardinality()* spo2.cardinality()),(sac.cardinality()* spo2.cardinality()),i,((sac.cardinality()* spo2.cardinality())/ spo3.cardinality()));
+                mapO.put(cl,valsO);
+
+                double estimateO = ((valsO.getSum_one_over_p_i_for_N()/ valsO.getS())/ valsO.getSum_one_over_p_i_for_fix_value())* valsO.getSum_ratio();
+
+                writer.println(subject + "," + classValue + "," + predicate + "," + object + "," + estimateO);
+                i++;
+            }
+        }
+    }
 
 
 
@@ -191,7 +234,7 @@ public class SACSPO {
                 Values valsS = mapS.get(key);
                 ProgressJenaIterator spo3 = (ProgressJenaIterator) ((LazyIterator) backend.search(sId, pId, backend.any())).iterator;
 
-                double N = (sac.cardinality()* spo2.cardinality();
+                double N = (sac.cardinality()* spo2.cardinality());
 
                 double sum_one_over_p_i = (sac.cardinality()* spo3.cardinality());
 

@@ -38,7 +38,7 @@ public class QB {
             }
         }
     }
-    public static void QB3(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
+    public static void QB4(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
             writer.println("Subject,CD");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
@@ -61,7 +61,7 @@ public class QB {
 
         }
     }
-    public static void QB4(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
+    public static void QB3(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
             writer.println("Predicate,CD");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
