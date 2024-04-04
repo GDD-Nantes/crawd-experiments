@@ -32,6 +32,7 @@ public class TEST {
         String outputfileQC4 = "/GDD/Thi/count-distinct-sampling/watdiv/sample/QC4.csv";
         String outputfileQC5 = "/GDD/Thi/count-distinct-sampling/watdiv/sample/QC5.csv";
         String outputfileQC6 = "/GDD/Thi/count-distinct-sampling/watdiv/sample/QC6.csv";
+        QC.watdiv = true;
         QC.QC3("/GDD/WATDIV", outputfileQC3, 1000, "<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>");
         QC.QC4("/GDD/WATDIV", outputfileQC4, 1000, "<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>");
         QC.QC5("/GDD/WATDIV", outputfileQC5, 1000, "<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>");
@@ -100,20 +101,20 @@ public class TEST {
     public void SPO_watdiv() throws IOException {
 
         String watdivPath = "/GDD/Thi/count-distinct-sampling/watdiv/sample/";
-        int iterations = 5;
+        int iterations = 1;
         int dataSize = 1_100_000;
 
         for (int i = 1; i <= iterations; i++) {
             String iterationDirectory = watdivPath + "Run_" + i + "/";
             Files.createDirectories(Paths.get(iterationDirectory));
 
-            String outputCDo = iterationDirectory + "SPO_CDo.csv";
+            //String outputCDo = iterationDirectory + "SPO_CDo.csv";
             String outputCDs = iterationDirectory + "SPO_CDs.csv";
-            String outputCDp = iterationDirectory + "SPO_CDp.csv";
+            //String outputCDp = iterationDirectory + "SPO_CDp.csv";
 
-            SPO.CDo(watdiv_path, outputCDo, dataSize);
+            //SPO.CDo(watdiv_path, outputCDo, dataSize);
             SPO.CDs(watdiv_path, outputCDs, dataSize);
-            SPO.CDp(watdiv_path, outputCDp, dataSize);
+            //SPO.CDp(watdiv_path, outputCDp, dataSize);
 
             System.out.println("WATDIV: Done iteration " + i);
         }

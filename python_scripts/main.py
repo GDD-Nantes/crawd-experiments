@@ -211,8 +211,7 @@ def merge_and_plot(input_files,output_data_file, output_plot_file,dataset, groun
     plt.figure(figsize=(10, 6))
 
     # Use seaborn lineplot with error bars
-    sns.lineplot(data=df, x="sample_size", y="mean_relative_error", hue="estimator",
-                 err_style="sd", err_kws={'capsize': 4})
+    sns.lineplot(data=df, x="sample_size", y="mean_relative_error", hue="estimator")
 
     plt.xlabel('Sample Size')
     plt.ylabel('Relative Error (%)')

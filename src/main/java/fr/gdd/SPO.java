@@ -1,23 +1,18 @@
 package fr.gdd;
 
-import com.github.jsonldjava.core.RDFDataset;
+import fr.gdd.estimators.ChaoLee;
 import fr.gdd.sage.generics.LazyIterator;
-import fr.gdd.sage.interfaces.BackendIterator;
 import fr.gdd.sage.interfaces.SPOC;
 import fr.gdd.sage.jena.JenaBackend;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.atlas.lib.tuple.Tuple;
-import org.apache.jena.base.Sys;
-import org.apache.jena.dboe.base.record.Record;
 import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
-import org.apache.jena.sparql.core.Quad;
 import org.apache.jena.tdb2.store.NodeId;
-import org.eclipse.jetty.server.handler.ContextHandler;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class SPO {
@@ -34,18 +29,23 @@ public class SPO {
             int i = 1;
             double sum_s = 0.;
             double sum_p_for_N = 0.;
+            ChaoLee chaoLee = new ChaoLee();
             while(i<(samplesize+1)){
+                //perform CRWD
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 Tuple<NodeId> sporw = sporwR.getLeft();
-                String subject = backend.getValue(sporw.get(0));
+                NodeId sub = sporw.get(SPOC.SUBJECT);
+                String subject = backend.getValue(sub);
 
-                LazyIterator s = (LazyIterator) backend.search(sporw.get(SPOC.SUBJECT), backend.any(), backend.any());
+                LazyIterator s = (LazyIterator) backend.search(sub, backend.any(), backend.any());
                 ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
                 sum_s += (1/ sR.count());
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
-                //double estimateS = (10_916_457./i) * sum_s ;
-                writer.printf("%s,%f%n", subject, estimateS);
+
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(sub, sR.count()));
+
+                writer.printf("%s,%f%n", subject, chaoLee.getEstimate());
                 //System.out.println(estimateS);
                 i++;
             }
@@ -54,7 +54,7 @@ public class SPO {
     }
     public static void CDs_dbpedia(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Subject,CD");
+            writer.println("Subject,CRWD,Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
             ProgressJenaIterator.rng = new Random(2);
             ProgressJenaIterator.NB_WALKS = 1;
@@ -81,7 +81,7 @@ public class SPO {
     }
     public static void CDp(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Predicate,CD");
+            writer.println("Predicate,CRWD,Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
             ProgressJenaIterator.rng = new Random(2);
             ProgressJenaIterator.NB_WALKS = 1;
@@ -107,7 +107,7 @@ public class SPO {
     }
     public static void CDp_dbpedia(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Predicate,CD");
+            writer.println("Predicate,CRWD,Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
             ProgressJenaIterator.rng = new Random(2);
             ProgressJenaIterator.NB_WALKS = 1;
@@ -133,7 +133,7 @@ public class SPO {
     }
     public static void CDo(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Object,CD");
+            writer.println("Object,CRWD,Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
             ProgressJenaIterator.rng = new Random(2);
             ProgressJenaIterator.NB_WALKS = 1;
@@ -158,7 +158,7 @@ public class SPO {
     }
     public static void CDo_dbpedia(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Object,CD");
+            writer.println("Object,CRWD,Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
             ProgressJenaIterator.rng = new Random(2);
             ProgressJenaIterator.NB_WALKS = 1;

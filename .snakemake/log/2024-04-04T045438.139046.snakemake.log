@@ -20,3 +20,19 @@ rule merge_and_plot:
     wildcards: dataset=watdiv, query=SPO_CDs
     resources: tmpdir=/tmp
 
+[Thu Apr  4 05:03:41 2024]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Thu Apr  4 05:03:41 2024]
+localrule all:
+    input: watdiv/figures/SPO_CDs.png
+    jobid: 0
+    reason: Input files updated by another job: watdiv/figures/SPO_CDs.png
+    resources: tmpdir=/tmp
+
+[Thu Apr  4 05:03:41 2024]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2024-04-04T045438.139046.snakemake.log

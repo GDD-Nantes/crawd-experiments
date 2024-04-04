@@ -14,8 +14,17 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
     Double sumOfNj = 0.;
     Double bigN;
 
-    public ChaoLee(Double bigN) {
+    public ChaoLee() {
+
+    }
+    /**
+     * To fix the N once and for all, useful to debug and test.
+     * @param bigN The fixed big N that states the size of the full data.
+     * @return this for convenience
+     */
+    public ChaoLee fixN (Double bigN) {
         this.bigN = bigN;
+        return this;
     }
 
     @Override
@@ -26,6 +35,7 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
         }
         return this;
     }
+
 
     @Override
     public Double getEstimate() {

@@ -17,7 +17,7 @@ runs = config.get("runs")
 if runs is None:
     runs = [1, 2, 3, 4, 5]
 else:
-    runs = runs.strip().split(",")
+    runs = runs
 
 estimators = config.get("estimators")
 if estimators is None:
@@ -40,7 +40,7 @@ rule merge_and_plot:
             attempt=runs
         )
     output:
-        "{dataset}/figures/{query}.csv",
+        "{dataset}/final_csv/{query}.csv",
         "{dataset}/figures/{query}.png"
     run:
         ground_truth=f"{wildcards.dataset}/GT/{wildcards.query}_formatted.csv"
