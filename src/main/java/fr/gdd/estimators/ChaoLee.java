@@ -1,8 +1,10 @@
 package fr.gdd.estimators;
 
+import com.github.jsonldjava.utils.Obj;
 import org.apache.jena.tdb2.store.NodeId;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -10,9 +12,17 @@ import java.util.Set;
  */
 public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
 
-    Set<NodeId> distincts = new HashSet<>();
+
+    Set<Set<NodeId>> distincts = new HashSet<>();
     Double sumOfNj = 0.;
+
+    // Wander Join
+    Double sampleSize = 0.;
+    Double sumOfProba = 0.;
     Double bigN;
+
+    // Debug
+    Long nbDuplicates = 0L;
 
     public ChaoLee() {}
 
@@ -28,18 +38,25 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
 
     @Override
     public CountDistinctEstimator<ChaoLeeSample> add(ChaoLeeSample newSample) {
+        ++sampleSize;
+        sumOfProba += 1./newSample.proba;
         if (!distincts.contains(newSample.element)) {
             this.distincts.add(newSample.element);
             sumOfNj += newSample.frequency;
+        } else {
+            nbDuplicates += 1;
         }
         return this;
     }
 
-
     @Override
     public Double getEstimate() {
-        return sumOfNj == 0. ? 0. : distincts.size()/(sumOfNj/this.bigN);
+        if (sampleSize == 0.) return 0.;
+
+        Double n = Objects.nonNull(bigN) ? bigN : (sumOfProba/sampleSize);
+
+        return sumOfNj==0. ? 0. : distincts.size()/(sumOfNj/n);
     }
 
-    public record ChaoLeeSample(NodeId element, Double frequency){}
+    public record ChaoLeeSample(Set<NodeId> element, Double proba, Double frequency){}
 }

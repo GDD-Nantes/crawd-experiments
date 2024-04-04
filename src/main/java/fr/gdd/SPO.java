@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class SPO {
     static JenaBackend backend = null;
@@ -43,7 +44,7 @@ public class SPO {
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
 
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(sub, sR.count()));
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sub), sporwR.getRight(), sR.count()));
 
                 writer.printf("%s,%f%n", subject, chaoLee.getEstimate());
                 //System.out.println(estimateS);
