@@ -14,9 +14,8 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
     Double sumOfNj = 0.;
     Double bigN;
 
-    public ChaoLee() {
+    public ChaoLee() {}
 
-    }
     /**
      * To fix the N once and for all, useful to debug and test.
      * @param bigN The fixed big N that states the size of the full data.
@@ -31,7 +30,7 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
     public CountDistinctEstimator<ChaoLeeSample> add(ChaoLeeSample newSample) {
         if (!distincts.contains(newSample.element)) {
             this.distincts.add(newSample.element);
-            sumOfNj += newSample.frequency/bigN;
+            sumOfNj += newSample.frequency;
         }
         return this;
     }
@@ -39,7 +38,7 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
 
     @Override
     public Double getEstimate() {
-        return sumOfNj == 0. ? 0. : distincts.size()/sumOfNj;
+        return sumOfNj == 0. ? 0. : distincts.size()/(sumOfNj/this.bigN);
     }
 
     public record ChaoLeeSample(NodeId element, Double frequency){}
