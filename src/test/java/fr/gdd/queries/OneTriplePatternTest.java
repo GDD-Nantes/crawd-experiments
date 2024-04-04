@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Disabled
-class SPObisTest {
+class OneTriplePatternTest {
 
     public static Double WATDIV_DISTINCT_S = 521_585.;
     public static Double WATDIV_DISTINCT_O = 1_005_832.;

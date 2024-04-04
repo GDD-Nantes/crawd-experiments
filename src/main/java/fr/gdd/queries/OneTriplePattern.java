@@ -71,7 +71,7 @@ public class OneTriplePattern {
         return this;
     }
 
-    private ProgressJenaIterator getProgressJenaIterator(NodeId s, NodeId p, NodeId o) {
+    protected ProgressJenaIterator getProgressJenaIterator(NodeId s, NodeId p, NodeId o) {
         return (ProgressJenaIterator) ((LazyIterator<NodeId, ?>)
                 (Objects.isNull(graph) ?
                         backend.search(s, p, o) :
@@ -83,7 +83,7 @@ public class OneTriplePattern {
      * @param spo the element found.
      * @param frequency The number of occurrences of this NodeId in the results, at specified position.
      */
-    private void addSample(Pair<Tuple<NodeId>, Double> spo, Double frequency) {
+    protected void addSample(Pair<Tuple<NodeId>, Double> spo, Double frequency) {
         switch (estimator) {
             case ChaoLee cl -> cl.add(new ChaoLee.ChaoLeeSample(getNodeIds(spo.getLeft()), spo.getRight(), frequency));
             case CRWD crwd -> crwd.add(new CRWD.CRWDSample(spo.getRight(), frequency));
@@ -91,7 +91,7 @@ public class OneTriplePattern {
         }
     }
 
-    private Set<NodeId> getNodeIds(Tuple<NodeId> triple) {
+    protected Set<NodeId> getNodeIds(Tuple<NodeId> triple) {
         return vars.stream().map(triple::get).collect(Collectors.toSet());
     }
 
