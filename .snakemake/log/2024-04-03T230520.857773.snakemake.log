@@ -1,0 +1,25 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count    min threads    max threads
+--------------  -------  -------------  -------------
+all                   1              1              1
+merge_and_plot        1              1              1
+total                 2              1              1
+
+Select jobs to execute...
+
+[Wed Apr  3 23:05:20 2024]
+rule merge_and_plot:
+    input: watdiv/compared_errors/chao_lee/Run_1/SPO_CDs.json, watdiv/compared_errors/chao_lee/Run_2/SPO_CDs.json, watdiv/compared_errors/chao_lee/Run_3/SPO_CDs.json, watdiv/compared_errors/chao_lee/Run_4/SPO_CDs.json, watdiv/compared_errors/chao_lee/Run_5/SPO_CDs.json, watdiv/compared_errors/horvitz_thompson/Run_1/SPO_CDs.json, watdiv/compared_errors/horvitz_thompson/Run_2/SPO_CDs.json, watdiv/compared_errors/horvitz_thompson/Run_3/SPO_CDs.json, watdiv/compared_errors/horvitz_thompson/Run_4/SPO_CDs.json, watdiv/compared_errors/horvitz_thompson/Run_5/SPO_CDs.json, watdiv/compared_errors/smoothed_jackknife/Run_1/SPO_CDs.json, watdiv/compared_errors/smoothed_jackknife/Run_2/SPO_CDs.json, watdiv/compared_errors/smoothed_jackknife/Run_3/SPO_CDs.json, watdiv/compared_errors/smoothed_jackknife/Run_4/SPO_CDs.json, watdiv/compared_errors/smoothed_jackknife/Run_5/SPO_CDs.json, watdiv/compared_errors/ndv/Run_1/SPO_CDs.json, watdiv/compared_errors/ndv/Run_2/SPO_CDs.json, watdiv/compared_errors/ndv/Run_3/SPO_CDs.json, watdiv/compared_errors/ndv/Run_4/SPO_CDs.json, watdiv/compared_errors/ndv/Run_5/SPO_CDs.json, watdiv/compared_errors/method_of_moments_v3/Run_1/SPO_CDs.json, watdiv/compared_errors/method_of_moments_v3/Run_2/SPO_CDs.json, watdiv/compared_errors/method_of_moments_v3/Run_3/SPO_CDs.json, watdiv/compared_errors/method_of_moments_v3/Run_4/SPO_CDs.json, watdiv/compared_errors/method_of_moments_v3/Run_5/SPO_CDs.json
+    output: watdiv/figures/SPO_CDs.csv, watdiv/figures/SPO_CDs.png
+    jobid: 1
+    reason: Missing output files: watdiv/figures/SPO_CDs.png
+    wildcards: dataset=watdiv, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-04-03T230520.857773.snakemake.log

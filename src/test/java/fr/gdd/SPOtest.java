@@ -116,10 +116,10 @@ class SPOtest {
 
     // DATASET LEVEL - VoID
 
-    //QB3,4,5
+    //CDp,4,5
     @Disabled
     @Test
-    public void getSampleSPO_CDSPO() throws IOException {
+    public void SPO_exact_value() throws IOException {
         String outputfileS = "sample_results/CDs_in_spo.csv";
         String outputfileP = "sample_results/CDp_in_spo.csv";
         String outputfileO = "sample_results/CDo_in_spo.csv";
@@ -177,35 +177,56 @@ class SPOtest {
             }
         }
     }
-    //QB2
+    //QB
     @Disabled
     @Test
     public void CDc_in_sac() throws IOException {
-        String outputfile = "sample_results/CDc_in_sac.csv";
-        try (PrintWriter writer = new PrintWriter(new FileWriter(outputfile))){
-            writer.println("Class,1/Probability,CDclass");
+        ProgressJenaIterator.rng = new Random(2);
+        String outputFolder = "sample_results/SAC/";
+        String outputFileAverage = "sample_results/SAC/CDc_in_sac_average.csv";
+
+        try (PrintWriter writerAverage = new PrintWriter(new FileWriter(outputFileAverage))) {
+            writerAverage.println("Average_CDclass");
+
             ProgressJenaIterator.NB_WALKS = 1000;
             JenaBackend backend = new JenaBackend("/GDD/WATDIV");
             NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
             ProgressJenaIterator SPO = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, backend.any())).iterator;
             double N = SPO.count();
-            double sum_c = 0;
-            double sum_probas = 0;
-            int i = 0;
-            while (i < N) {
-                Pair<Tuple<NodeId>, Double> spoR = SPO.getRandomSPOWithProbability();
-                NodeId cId = spoR.getLeft().get(SPOC.OBJECT);
-                String classValue = backend.getValue(cId);
-                Double firstTripleProba = spoR.getRight();
-                sum_probas += (1 / firstTripleProba);
-                LazyIterator c = (LazyIterator) backend.search(backend.any(), is_a, cId);
-                ProgressJenaIterator cR = (ProgressJenaIterator) c.iterator;
-                sum_c += (1 / firstTripleProba) / cR.count();
-                double estimateC = (N/ sum_probas) * sum_c;
-                writer.printf("%s,%.1f,%f%n", classValue, 1 / firstTripleProba, estimateC);
-                i += 1;
+
+            int numberOfRuns = 10;
+            double sumOfEstimateC = 0;
+
+            for (int j = 0; j < numberOfRuns; j++) {
+                int i = 0;
+                double sum_c = 0;
+                double sum_probas = 0;
+
+                String outputfile = outputFolder + "CDc_in_sac_run_" + (j + 1) + ".csv";
+                try (PrintWriter writer = new PrintWriter(new FileWriter(outputfile))) {
+                    writer.println("Class,1/Probability,CDclass");
+
+                    while (i < 10 * N) {
+                        Pair<Tuple<NodeId>, Double> spoR = SPO.getRandomSPOWithProbability();
+                        NodeId cId = spoR.getLeft().get(SPOC.OBJECT);
+                        String classValue = backend.getValue(cId);
+                        Double firstTripleProba = spoR.getRight();
+                        sum_probas += (1 / firstTripleProba);
+                        LazyIterator c = (LazyIterator) backend.search(backend.any(), is_a, cId);
+                        ProgressJenaIterator cR = (ProgressJenaIterator) c.iterator;
+                        sum_c += (1 / firstTripleProba) / cR.count();
+                        double estimateC = (N / sum_probas) * sum_c;
+                        sumOfEstimateC += estimateC;
+                        writer.printf("%s,%.1f,%f%n", classValue, 1 / firstTripleProba, estimateC);
+                        i += 1;
+                    }
+                }
             }
+
+            double averageEstimateC = sumOfEstimateC / (numberOfRuns * 10 *N);
+            writerAverage.printf("Average estimateC: %.1f%n", averageEstimateC);
         }
+
     }
 
     @Disabled
@@ -237,4 +258,56 @@ class SPOtest {
             }
         }
     }
+// 26/3/2024 version for getting the uniform sample as well as performance of the formula
+    @Disabled
+    @Test
+    public void get_uniform_sample_SPO_and_perform_formula() throws IOException {
+        ProgressJenaIterator.rng = new Random(1);
+        String outputfileS = "/GDD/ndv_estimator/WatDiv/count_distinct/evaluate/CDs_in_spo.csv";
+        String outputfileP = "/GDD/ndv_estimator/WatDiv/count_distinct/evaluate/CDp_in_spo.csv";
+        String outputfileO = "/GDD/ndv_estimator/WatDiv/count_distinct/evaluate/CDo_in_spo.csv";
+        try (PrintWriter writerS = new PrintWriter(new FileWriter(outputfileS));
+             PrintWriter writerP = new PrintWriter(new FileWriter(outputfileP));
+             PrintWriter writerO = new PrintWriter(new FileWriter(outputfileO))) {
+            writerS.println("Subject,CDsubject,NBRW");
+            writerP.println("Predicate,CDpredicate,NBRW");
+            writerO.println("Object,CDobject,NBRW");
+            JenaBackend backend = new JenaBackend("/GDD/WATDIV");
+            int trueN = 10916456;
+            int i = 0;
+            double sum_s = 0.;
+            double sum_p = 0.;
+            double sum_o = 0.;
+            ProgressJenaIterator spo = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), backend.any(), backend.any())).iterator;
+            ProgressJenaIterator.NB_WALKS = 1;
+            double N = spo.cardinality();
+            while (i < (trueN/10)) {
+                Tuple<NodeId> sporwR = spo.getUniformRandomSPO();
+                String subject = backend.getValue(sporwR.get(0));
+                String predicate = backend.getValue(sporwR.get(1));
+                String object = backend.getValue(sporwR.get(2));
+                LazyIterator s = (LazyIterator) backend.search(sporwR.get(0), backend.any(), backend.any());
+                ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
+                LazyIterator p = (LazyIterator) backend.search(backend.any(), sporwR.get(1), backend.any());
+                ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
+                LazyIterator o = (LazyIterator) backend.search(backend.any(), backend.any(), sporwR.get(2));
+                ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
+                sum_s += (1/ sR.cardinality());
+                sum_p += (1/ pR.cardinality());
+                sum_o += (1/ oR.cardinality());
+                double estimateS = (N/i) * sum_s ;
+                double estimateP = (N/i) * sum_p ;
+                double estimateO = (N/i) * sum_o ;
+                writerS.printf("%s,%f,%d%n", subject, estimateS,i);
+                writerP.printf("%s,%f,%d%n", predicate, estimateP,i);
+                writerO.printf("%s,%f,%d%n", object, estimateO, i);
+                i++;
+            }
+        }
+
+    }
+
+    // 27/3/2024 version for calling in both watdiv and wdbench
+
+
 }

@@ -67,9 +67,9 @@ public class SPO {
             while (i<(samplesize+1)) {
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 Tuple<NodeId> sporw = sporwR.getLeft();
-                String subject = backend.getValue(sporw.get(0));
+                String subject = backend.getValue(sporw.get(1));
 
-                LazyIterator s = (LazyIterator) backend.search(sporw.get(SPOC.SUBJECT), backend.any(), backend.any(), graph);
+                LazyIterator s = (LazyIterator) backend.search(graph,sporw.get(SPOC.SUBJECT), backend.any(), backend.any());
                 ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
                 sum_s += (1 / sR.count());
                 sum_p_for_N += (1 / sporwR.getRight());
@@ -119,8 +119,8 @@ public class SPO {
             while(i<(samplesize+1)){
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
 
-                String predicate = backend.getValue(sporwR.getLeft().get(1));
-                LazyIterator p = (LazyIterator) backend.search(backend.any(),sporwR.getLeft().get(SPOC.PREDICATE), backend.any(),graph);
+                String predicate = backend.getValue(sporwR.getLeft().get(2));
+                LazyIterator p = (LazyIterator) backend.search(graph,backend.any(),sporwR.getLeft().get(SPOC.PREDICATE), backend.any());
                 ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
                 sum_p += (1/ pR.cardinality());
                 sum_p_for_N += (1 / sporwR.getRight());
@@ -171,8 +171,8 @@ public class SPO {
             while(i<(samplesize+1)){
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
 
-                String object = backend.getValue(sporwR.getLeft().get(2));
-                LazyIterator o = (LazyIterator) backend.search(backend.any(), backend.any(),sporwR.getLeft().get(2));
+                String object = backend.getValue(sporwR.getLeft().get(3));
+                LazyIterator o = (LazyIterator) backend.search(graph,backend.any(), backend.any(),sporwR.getLeft().get(3));
                 ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
                 sum_o += (1/ oR.cardinality());
                 sum_o_for_N += (1 / sporwR.getRight());

@@ -1,45 +1,74 @@
-# Define the base path
-base_path = "/GDD/Thi/count-distinct-sampling/"
+print(config)
 
 # Define datasets and queries
-datasets = ["watdiv","largerdf_dbpedia", "wdbench"]
-queries = ["SPO_CDs", "SPO_CDp", "SPO_CDo"]
-run = [1,2,3,4,5]
+datasets = config.get("datasets")
+if datasets is None:
+    datasets = ["watdiv", "largerdf_dbpedia", "wdbench"]
+else:
+    datasets = datasets.strip().split(",")
+
+queries = config.get("queries")
+if queries is None:
+    queries = ["SPO_CDs", "SPO_CDp", "SPO_CDo"]
+else:
+    queries = queries.strip().split(",")
+
+runs = config.get("runs")
+if runs is None:
+    runs = [1, 2, 3, 4, 5]
+else:
+    runs = runs.strip().split(",")
+
+estimators = config.get("estimators")
+if estimators is None:
+    estimators = ["chao_lee","horvitz_thompson","smoothed_jackknife","ndv","method_of_moments_v3"]
+else:
+    estimators = estimators.strip().split(",")
 
 # Define input and output file paths for each dataset and query
 rule all:
     input:
-        expand(base_path + "{dataset}/figures/Run_{run}/{query}.png",
-               dataset=datasets[0],
-               query=queries[0]
-               )
+        expand("{dataset}/figures/{query}.png",
+               dataset=datasets,
+               query=queries
+        )
+
+rule merge_and_plot:
+    input:
+        expand("{{dataset}}/compared_errors/{estimator}/Run_{attempt}/{{query}}.json",
+            estimator=estimators,
+            attempt=runs
+        )
+    output:
+        "{dataset}/figures/{query}.csv",
+        "{dataset}/figures/{query}.png"
+    run:
+        ground_truth=f"{wildcards.dataset}/GT/{wildcards.query}_formatted.csv"
+        shell(f"""
+        python python_scripts/main.py merge-and-plot {input} {output[0]} {output[1]} \
+            --dataset={wildcards.dataset} \
+            --ground-truth={ground_truth} \
+            --query={wildcards.query}
+
+        """)
 
 # Rule to run_estimators.py
 rule run_estimators:
     input:
-        input_file=base_path + "{dataset}/sample/Run_{run}/{query}.csv",
-        ground_truth=base_path + "{dataset}/GT/{query}_formatted.csv"
+        input_file="{dataset}/sample/Run_{attempt}/{query}.csv",
+        ground_truth="{dataset}/GT/{query}_formatted.csv"
     output:
-        compared_results=base_path + "{dataset}/compared_results/Run_{run}/{query}.json",
-        compared_errors=base_path + "{dataset}/compared_errors/Run_{run}/{query}.json"
+        compared_results="{dataset}/compared_results/{estimator}/Run_{attempt}/{query}.json",
+        compared_errors="{dataset}/compared_errors/{estimator}/Run_{attempt}/{query}.json"
     shell:
         """
-        source /GDD/miniconda3/etc/profile.d/conda.sh &&
-        conda activate ndv &&
-        python {base_path}python_scripts/run_estimators.py \
-            --input_file {input.input_file} \
-            --ground_truth {input.ground_truth} \
-            --compared_results {output.compared_results} \
-            --compared_errors {output.compared_errors}
+        python python_scripts/main.py run-estimators \
+            --input-file {input.input_file} \
+            --ground-truth {input.ground_truth} \
+            --compared-results {output.compared_results} \
+            --compared-errors {output.compared_errors} \
+            --estimator {wildcards.estimator} \
+            --dataset {wildcards.dataset}
         """
 
-# Rule to visualize.py
-rule visualize:
-    input:
-        errors_file="{base_path}/{dataset}/compared_errors/Run_{run}/{query}.json"
-    output:
-        figure="{base_path}/{dataset}/figures/Run_{run}/{query}.png"
-    shell:
-        """
-        python {base_path}/python_scripts/visualize.py --input_file {input.errors_file}
-        """
+

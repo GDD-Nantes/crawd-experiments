@@ -1,0 +1,451 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count    min threads    max threads
+--------------  -------  -------------  -------------
+all                   1              1              1
+merge_and_plot        1              1              1
+run_estimators       25              1              1
+total                27              1              1
+
+Select jobs to execute...
+
+[Thu Apr  4 04:24:02 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/smoothed_jackknife/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_4/SPO_CDs.json
+    jobid: 15
+    reason: Updated input files: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=smoothed_jackknife, attempt=4, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_4/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/smoothed_jackknife/Run_4/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_4/SPO_CDs.json             --estimator smoothed_jackknife             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:25:06 2024]
+Finished job 15.
+1 of 27 steps (4%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:25:06 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/method_of_moments_v3/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_2/SPO_CDs.json
+    jobid: 23
+    reason: Updated input files: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=method_of_moments_v3, attempt=2, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_2/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/method_of_moments_v3/Run_2/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_2/SPO_CDs.json             --estimator method_of_moments_v3             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:26:23 2024]
+Finished job 23.
+2 of 27 steps (7%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:26:23 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/horvitz_thompson/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_3/SPO_CDs.json
+    jobid: 9
+    reason: Updated input files: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=horvitz_thompson, attempt=3, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_3/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/horvitz_thompson/Run_3/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/horvitz_thompson/Run_3/SPO_CDs.json             --estimator horvitz_thompson             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:28:16 2024]
+Finished job 9.
+3 of 27 steps (11%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:28:16 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/smoothed_jackknife/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_5/SPO_CDs.json
+    jobid: 16
+    reason: Updated input files: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=smoothed_jackknife, attempt=5, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_5/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/smoothed_jackknife/Run_5/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_5/SPO_CDs.json             --estimator smoothed_jackknife             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:29:17 2024]
+Finished job 16.
+4 of 27 steps (15%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:29:17 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/chao_lee/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_1/SPO_CDs.json
+    jobid: 2
+    reason: Updated input files: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=chao_lee, attempt=1, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_1/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/chao_lee/Run_1/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/chao_lee/Run_1/SPO_CDs.json             --estimator chao_lee             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:30:13 2024]
+Finished job 2.
+5 of 27 steps (19%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:30:13 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/horvitz_thompson/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_4/SPO_CDs.json
+    jobid: 10
+    reason: Updated input files: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=horvitz_thompson, attempt=4, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_4/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/horvitz_thompson/Run_4/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/horvitz_thompson/Run_4/SPO_CDs.json             --estimator horvitz_thompson             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:32:06 2024]
+Finished job 10.
+6 of 27 steps (22%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:32:06 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/method_of_moments_v3/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_3/SPO_CDs.json
+    jobid: 24
+    reason: Updated input files: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=method_of_moments_v3, attempt=3, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_3/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/method_of_moments_v3/Run_3/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_3/SPO_CDs.json             --estimator method_of_moments_v3             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:33:23 2024]
+Finished job 24.
+7 of 27 steps (26%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:33:23 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/smoothed_jackknife/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_3/SPO_CDs.json
+    jobid: 14
+    reason: Updated input files: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=smoothed_jackknife, attempt=3, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_3/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/smoothed_jackknife/Run_3/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_3/SPO_CDs.json             --estimator smoothed_jackknife             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:34:24 2024]
+Finished job 14.
+8 of 27 steps (30%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:34:24 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/ndv/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_2/SPO_CDs.json
+    jobid: 18
+    reason: Updated input files: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=ndv, attempt=2, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_2/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/ndv/Run_2/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/ndv/Run_2/SPO_CDs.json             --estimator ndv             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:34:37 2024]
+Finished job 18.
+9 of 27 steps (33%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:34:37 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/ndv/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_1/SPO_CDs.json
+    jobid: 17
+    reason: Updated input files: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=ndv, attempt=1, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_1/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/ndv/Run_1/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/ndv/Run_1/SPO_CDs.json             --estimator ndv             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:34:51 2024]
+Finished job 17.
+10 of 27 steps (37%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:34:51 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/chao_lee/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_2/SPO_CDs.json
+    jobid: 3
+    reason: Updated input files: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=chao_lee, attempt=2, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_2/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/chao_lee/Run_2/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/chao_lee/Run_2/SPO_CDs.json             --estimator chao_lee             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:35:47 2024]
+Finished job 3.
+11 of 27 steps (41%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:35:47 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/chao_lee/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_4/SPO_CDs.json
+    jobid: 5
+    reason: Updated input files: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=chao_lee, attempt=4, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_4/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/chao_lee/Run_4/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/chao_lee/Run_4/SPO_CDs.json             --estimator chao_lee             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:36:43 2024]
+Finished job 5.
+12 of 27 steps (44%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:36:43 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/ndv/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_3/SPO_CDs.json
+    jobid: 19
+    reason: Updated input files: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=ndv, attempt=3, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_3/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/ndv/Run_3/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/ndv/Run_3/SPO_CDs.json             --estimator ndv             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:36:57 2024]
+Finished job 19.
+13 of 27 steps (48%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:36:57 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/horvitz_thompson/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_1/SPO_CDs.json
+    jobid: 7
+    reason: Updated input files: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=horvitz_thompson, attempt=1, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_1/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/horvitz_thompson/Run_1/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/horvitz_thompson/Run_1/SPO_CDs.json             --estimator horvitz_thompson             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:38:51 2024]
+Finished job 7.
+14 of 27 steps (52%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:38:51 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/ndv/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_5/SPO_CDs.json
+    jobid: 21
+    reason: Updated input files: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=ndv, attempt=5, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_5/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/ndv/Run_5/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/ndv/Run_5/SPO_CDs.json             --estimator ndv             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:39:07 2024]
+Finished job 21.
+15 of 27 steps (56%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:39:07 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/method_of_moments_v3/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_4/SPO_CDs.json
+    jobid: 25
+    reason: Updated input files: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=method_of_moments_v3, attempt=4, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_4/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/method_of_moments_v3/Run_4/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_4/SPO_CDs.json             --estimator method_of_moments_v3             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:40:25 2024]
+Finished job 25.
+16 of 27 steps (59%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:40:25 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/horvitz_thompson/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_5/SPO_CDs.json
+    jobid: 11
+    reason: Updated input files: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=horvitz_thompson, attempt=5, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_5/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/horvitz_thompson/Run_5/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/horvitz_thompson/Run_5/SPO_CDs.json             --estimator horvitz_thompson             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:42:20 2024]
+Finished job 11.
+17 of 27 steps (63%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:42:20 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/method_of_moments_v3/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_1/SPO_CDs.json
+    jobid: 22
+    reason: Updated input files: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=method_of_moments_v3, attempt=1, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_1/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/method_of_moments_v3/Run_1/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_1/SPO_CDs.json             --estimator method_of_moments_v3             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:43:41 2024]
+Finished job 22.
+18 of 27 steps (67%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:43:41 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/smoothed_jackknife/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_2/SPO_CDs.json
+    jobid: 13
+    reason: Updated input files: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=smoothed_jackknife, attempt=2, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_2/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/smoothed_jackknife/Run_2/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_2/SPO_CDs.json             --estimator smoothed_jackknife             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:44:54 2024]
+Finished job 13.
+19 of 27 steps (70%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:44:54 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/ndv/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_4/SPO_CDs.json
+    jobid: 20
+    reason: Updated input files: largerdf_dbpedia/sample/Run_4/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=ndv, attempt=4, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_4/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/ndv/Run_4/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/ndv/Run_4/SPO_CDs.json             --estimator ndv             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:45:08 2024]
+Finished job 20.
+20 of 27 steps (74%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:45:08 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/method_of_moments_v3/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_5/SPO_CDs.json
+    jobid: 26
+    reason: Updated input files: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=method_of_moments_v3, attempt=5, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_5/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/method_of_moments_v3/Run_5/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_5/SPO_CDs.json             --estimator method_of_moments_v3             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:46:35 2024]
+Finished job 26.
+21 of 27 steps (78%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:46:35 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/chao_lee/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_5/SPO_CDs.json
+    jobid: 6
+    reason: Updated input files: largerdf_dbpedia/sample/Run_5/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=chao_lee, attempt=5, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_5/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/chao_lee/Run_5/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/chao_lee/Run_5/SPO_CDs.json             --estimator chao_lee             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:47:36 2024]
+Finished job 6.
+22 of 27 steps (81%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:47:36 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/smoothed_jackknife/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_1/SPO_CDs.json
+    jobid: 12
+    reason: Updated input files: largerdf_dbpedia/sample/Run_1/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=smoothed_jackknife, attempt=1, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_1/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/smoothed_jackknife/Run_1/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_1/SPO_CDs.json             --estimator smoothed_jackknife             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:48:38 2024]
+Finished job 12.
+23 of 27 steps (85%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:48:38 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/horvitz_thompson/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_2/SPO_CDs.json
+    jobid: 8
+    reason: Updated input files: largerdf_dbpedia/sample/Run_2/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=horvitz_thompson, attempt=2, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_2/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/horvitz_thompson/Run_2/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/horvitz_thompson/Run_2/SPO_CDs.json             --estimator horvitz_thompson             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:50:32 2024]
+Finished job 8.
+24 of 27 steps (89%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:50:32 2024]
+rule run_estimators:
+    input: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv, largerdf_dbpedia/GT/SPO_CDs_formatted.csv
+    output: largerdf_dbpedia/compared_results/chao_lee/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_3/SPO_CDs.json
+    jobid: 4
+    reason: Updated input files: largerdf_dbpedia/sample/Run_3/SPO_CDs.csv
+    wildcards: dataset=largerdf_dbpedia, estimator=chao_lee, attempt=3, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+
+        python python_scripts/main.py run-estimators             --input-file largerdf_dbpedia/sample/Run_3/SPO_CDs.csv             --ground-truth largerdf_dbpedia/GT/SPO_CDs_formatted.csv             --compared-results largerdf_dbpedia/compared_results/chao_lee/Run_3/SPO_CDs.json             --compared-errors largerdf_dbpedia/compared_errors/chao_lee/Run_3/SPO_CDs.json             --estimator chao_lee             --dataset largerdf_dbpedia
+        
+[Thu Apr  4 04:51:29 2024]
+Finished job 4.
+25 of 27 steps (93%) done
+Select jobs to execute...
+
+[Thu Apr  4 04:51:29 2024]
+rule merge_and_plot:
+    input: largerdf_dbpedia/compared_errors/chao_lee/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_5/SPO_CDs.json
+    output: largerdf_dbpedia/figures/SPO_CDs.csv, largerdf_dbpedia/figures/SPO_CDs.png
+    jobid: 1
+    reason: Missing output files: largerdf_dbpedia/figures/SPO_CDs.png; Input files updated by another job: largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_3/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/smoothed_jackknife/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/chao_lee/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/ndv/Run_5/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_4/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_2/SPO_CDs.json, largerdf_dbpedia/compared_errors/horvitz_thompson/Run_1/SPO_CDs.json, largerdf_dbpedia/compared_errors/method_of_moments_v3/Run_4/SPO_CDs.json
+    wildcards: dataset=largerdf_dbpedia, query=SPO_CDs
+    resources: tmpdir=/tmp
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-04-04T042402.342937.snakemake.log
