@@ -1,5 +1,6 @@
 package fr.gdd.queries;
 
+import fr.gdd.estimators.CRWD;
 import fr.gdd.estimators.ChaoLee;
 import fr.gdd.sage.databases.persistent.Watdiv10M;
 import fr.gdd.sage.interfaces.SPOC;
@@ -14,6 +15,7 @@ import java.util.Set;
 class OneTriplePatternTest {
 
     public static Double WATDIV_DISTINCT_S = 521_585.;
+    public static Double WATDIV_DISTINCT_P = 86.;
     public static Double WATDIV_DISTINCT_O = 1_005_832.;
 
     @Test
@@ -21,16 +23,17 @@ class OneTriplePatternTest {
         Watdiv10M watdiv10M = new Watdiv10M(Optional.empty());
         JenaBackend backend = new JenaBackend(watdiv10M.dbPath_asStr);
 
-        OneTriplePattern spoExperiment = new OneTriplePattern(backend, Set.of(SPOC.OBJECT))
-                .setEstimator(new ChaoLee())
+        OneTriplePattern spoExperiment = (OneTriplePattern) new OneTriplePattern(backend, Set.of(SPOC.PREDICATE))
+                .setEstimator(new CRWD())
                 .setStep(10)
                 .setUniform(false)
-                .setSeed(1)
+                .setSeed(2)
+                .setEstimatedCount(1)
                 .fixN();
 
         while(spoExperiment.getNbSteps() < 10_000_000) {
             Double estimate = spoExperiment.sample();
-            System.out.printf("%s %.2f %f%n", spoExperiment.getNbSteps(), estimate, getRelativeError(WATDIV_DISTINCT_O, estimate));
+            System.out.printf("%s %.2f %f%n", spoExperiment.getNbSteps(), estimate, getRelativeError(WATDIV_DISTINCT_P, estimate));
         }
     }
 

@@ -2,8 +2,6 @@ package fr.gdd.queries;
 
 import fr.gdd.estimators.CRWD;
 import fr.gdd.estimators.ChaoLee;
-import fr.gdd.estimators.CountDistinctEstimator;
-import fr.gdd.sage.generics.LazyIterator;
 import fr.gdd.sage.interfaces.SPOC;
 import fr.gdd.sage.jena.JenaBackend;
 import org.apache.commons.lang3.tuple.Pair;
@@ -13,7 +11,6 @@ import org.apache.jena.graph.Node;
 import org.apache.jena.tdb2.store.NodeId;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,15 +18,7 @@ import java.util.stream.Collectors;
  * Distinct of ?s or ?p or ?o in simple pattern like SPO.
  * TODO
  */
-public class OneTriplePattern {
-
-    final JenaBackend backend;
-    boolean isUniform = false;
-    NodeId graph = null;
-    CountDistinctEstimator<?> estimator;
-    Integer step = 1;
-    Integer nbSteps = 0;
-    Set<Integer> vars;
+public class OneTriplePattern extends ConfigCountDistinctQuery {
 
     NodeId boundS;
     NodeId boundP;
@@ -40,8 +29,7 @@ public class OneTriplePattern {
      * @param vars The variable that we want to know the distinct number of values.
      */
     public OneTriplePattern(JenaBackend backend, Set<Integer> vars) {
-        this.backend = backend;
-        this.vars = vars;
+        super(backend, vars);
         this.boundS = backend.any();
         this.boundP = backend.any();
         this.boundO = backend.any();
@@ -51,6 +39,7 @@ public class OneTriplePattern {
      * Perform a sampling based on current configuration.
      * @return The estimated count-distinct.
      */
+    Double diff = 0.;
     public Double sample() {
         ProgressJenaIterator spo =  getProgressJenaIterator(boundS, boundP, boundO);
         for (int i = 0; i < step; ++i) {
@@ -60,7 +49,14 @@ public class OneTriplePattern {
                     vars.contains(SPOC.SUBJECT) ? randomAndProba.getLeft().get(SPOC.SUBJECT) : boundS,
                     vars.contains(SPOC.PREDICATE) ? randomAndProba.getLeft().get(SPOC.PREDICATE) : boundP,
                     vars.contains(SPOC.OBJECT) ? randomAndProba.getLeft().get(SPOC.OBJECT) : boundO);
-            this.addSample(randomAndProba, it4Fi.count());
+
+            double count = Objects.isNull(this.nbWalks) ? it4Fi.count() : it4Fi.cardinality(this.nbWalks);
+
+            // double actual = it4Fi.count();
+            // diff += count - actual;
+            //double meow = diff/nbSteps;
+
+            this.addSample(randomAndProba, count);
         }
         return estimator.getEstimate();
     }
@@ -69,13 +65,6 @@ public class OneTriplePattern {
         ProgressJenaIterator spo =  getProgressJenaIterator(boundS, boundP, boundO);
         estimator.fixN(spo.count());
         return this;
-    }
-
-    protected ProgressJenaIterator getProgressJenaIterator(NodeId s, NodeId p, NodeId o) {
-        return (ProgressJenaIterator) ((LazyIterator<NodeId, ?>)
-                (Objects.isNull(graph) ?
-                        backend.search(s, p, o) :
-                        backend.search(s, p, o, graph))).getWrapped();
     }
 
     /**
@@ -96,58 +85,6 @@ public class OneTriplePattern {
     }
 
     /* ********************************************************************* */
-
-    /**
-     * @return The sample size so far.
-     */
-    public Integer getNbSteps() {
-        return nbSteps;
-    }
-
-    /**
-     * @param uniform True to get uniform sampling of 1 triple pattern.
-     * @return this.
-     */
-    public OneTriplePattern setUniform(boolean uniform) {
-        isUniform = uniform;
-        return this;
-    }
-
-    /**
-     * @param graph The NodeId of the graph to look for, in the dataset.
-     * @return this.
-     */
-    public OneTriplePattern setGraph(NodeId graph) {
-        this.graph = graph;
-        return this;
-    }
-
-    /**
-     * @param seed The seed used for this run.
-     * @return this.
-     */
-    public OneTriplePattern setSeed(Integer seed) {
-        ProgressJenaIterator.rng = new Random(seed);
-        return this;
-    }
-
-    /**
-     * @param estimator The estimator to run at each step.
-     * @return this.
-     */
-    public OneTriplePattern setEstimator(CountDistinctEstimator<?> estimator) {
-        this.estimator = estimator;
-        return this;
-    }
-
-    /**
-     * @param step The number of iterations of random sample before returning a result.
-     * @return this.
-     */
-    public OneTriplePattern setStep(Integer step) {
-        this.step = step;
-        return this;
-    }
 
     public OneTriplePattern bindS(NodeId s) {
         this.boundS = s;
