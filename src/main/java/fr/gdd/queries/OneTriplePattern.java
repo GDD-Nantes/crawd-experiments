@@ -39,7 +39,6 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
      * Perform a sampling based on current configuration.
      * @return The estimated count-distinct.
      */
-    Double diff = 0.;
     public Double sample() {
         ProgressJenaIterator spo =  getProgressJenaIterator(boundS, boundP, boundO);
         for (int i = 0; i < step; ++i) {
@@ -51,10 +50,6 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
                     vars.contains(SPOC.OBJECT) ? randomAndProba.getLeft().get(SPOC.OBJECT) : boundO);
 
             double count = Objects.isNull(this.nbWalks) ? it4Fi.count() : it4Fi.cardinality(this.nbWalks);
-
-            // double actual = it4Fi.count();
-            // diff += count - actual;
-            //double meow = diff/nbSteps;
 
             this.addSample(randomAndProba, count);
         }

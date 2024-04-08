@@ -28,7 +28,7 @@ class TwoTriplePatternsTest {
         NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
         NodeId c = backend.getId(WATDIV_MOST_FREQUENT_CLASS, SPOC.OBJECT);
 
-        TwoTriplePatterns twoTPs = (TwoTriplePatterns) new TwoTriplePatterns(backend, Set.of(TwoTriplePatterns.OO))
+        TwoTriplePatterns twoTPs = ((TwoTriplePatterns) new TwoTriplePatterns(backend, Set.of(TwoTriplePatterns.OO))
                 .bindSS(SPOC.SUBJECT)
                 .bindS(SPOC.SUBJECT)
                 .bindP(is_a)
@@ -37,11 +37,11 @@ class TwoTriplePatternsTest {
                 .setStep(10)
                 .setUniform(false)
                 .setSeed(1)
-                .setEstimatedCount(10000);
-        // TODO fix N
+                .setEstimatedCount(100))
+                .fixN(); // must be after binds and estimator
 
 
-        while(twoTPs.getNbSteps() < 10_000_000) {
+        while(twoTPs.getNbSteps() < 10*twoTPs.getBigN()/100) {
             Double estimate = twoTPs.sample();
             System.out.printf("%s %.2f %.2f%n", twoTPs.getNbSteps(), estimate,
                     OneTriplePatternTest.getRelativeErrorPercent(WATDIV_MOST_FREQUENT_CLASS_DISTINCT_O, estimate));

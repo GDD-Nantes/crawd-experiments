@@ -107,4 +107,7 @@ public class ConfigCountDistinctQuery {
         return this;
     }
 
+    public CountDistinctEstimator<?> getEstimator() {
+        return estimator;
+    }
 }

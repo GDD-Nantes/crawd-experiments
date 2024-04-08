@@ -3,14 +3,12 @@ package fr.gdd.queries;
 import fr.gdd.estimators.CRWD;
 import fr.gdd.sage.interfaces.SPOC;
 import fr.gdd.sage.jena.JenaBackend;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.apache.jena.dboe.trans.bplustree.PreemptJenaIterator;
 import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
 import org.apache.jena.graph.Node;
 import org.apache.jena.tdb2.store.NodeId;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +30,8 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     Function<Tuple<NodeId>, NodeId> boundPP;
     Function<Tuple<NodeId>, NodeId> boundOO;
 
+    Double bigN = null;
+
     /**
      * @param backend The backend to look into.
      * @param vars    The variable that we want to know the distinct number of values.
@@ -43,20 +43,40 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
         boundOO = (t) -> backend.any();
     }
 
+
     @Override
     public TwoTriplePatterns fixN() {
-        ProgressJenaIterator firstTP =  getProgressJenaIterator(boundS.apply(null), boundP.apply(null), boundO.apply(null));
+        this.estimator.fixN(getBigN());
+        return this;
+    }
+
+    public Double getBigN() {
+        if (Objects.nonNull(bigN)) {
+            return bigN;
+        }
+
+        NodeId s = boundS.apply(null);
+        NodeId p = boundP.apply(null);
+        NodeId o = boundO.apply(null);
+
+        ProgressJenaIterator firstTP =  getProgressJenaIterator(s, p, o);
         PreemptJenaIterator itFirst = (PreemptJenaIterator) firstTP;
         double sum = 0.;
         while (itFirst.hasNext()) {
             itFirst.next();
             Tuple<NodeId> spo = itFirst.getCurrentTuple();
-            ProgressJenaIterator secondTP =  getProgressJenaIterator(boundSS.apply(spo), boundPP.apply(spo), boundOO.apply(spo));
-            PreemptJenaIterator itSecond = (PreemptJenaIterator) firstTP;
+
+            NodeId ss = boundSS.apply(spo);
+            NodeId pp = boundPP.apply(spo);
+            NodeId oo = boundOO.apply(spo);
+
+            ProgressJenaIterator secondTP = getProgressJenaIterator(ss, pp, oo);
+            PreemptJenaIterator itSecond = (PreemptJenaIterator) secondTP;
+
             sum += itSecond.count();
         }
-        estimator.fixN(sum);
-        return this;
+        this.bigN = sum;
+        return bigN;
     }
 
     @Override
@@ -90,7 +110,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
 
     // TODO approximated count
     protected Double count(Tuple<NodeId> first, Tuple<NodeId> second) {
-        Double result = 0.;
+        double result = 0.;
         ProgressJenaIterator firstTP =  getProgressJenaIterator(
                 vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(null),
                 vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(null),
@@ -139,46 +159,59 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
             Pair<Tuple<NodeId>, Double> randomSecond = getRandomAndProba(secondTP);
 
             sum += Objects.isNull(randomSecond.getLeft()) ?
-                 0: // (does nothing if the walk fails)
-                 randomFirst.getRight() * randomSecond.getRight(); // or add the proba
+                    0: // (does nothing if the walk fails)
+                    1./(randomFirst.getRight() * randomSecond.getRight()); // or add the proba
         }
 
         return sum/nbWalks;
     }
 
     protected Double estimatedCountTP2xTP1(Tuple<NodeId> first, Tuple<NodeId> second, Integer nbWalks) {
-        ProgressJenaIterator secondTP =  getProgressJenaIterator(
-                vars.contains(SS) ? second.get(SPOC.SUBJECT) :
-                        Objects.isNull(boundSS.apply(null)) ? backend.any() : boundSS.apply(null),
-                vars.contains(PP) ? second.get(SPOC.PREDICATE) :
-                        Objects.isNull(boundPP.apply(null)) ? backend.any() : boundPP.apply(null),
-                vars.contains(OO) ? second.get(SPOC.OBJECT) :
-                        Objects.isNull(boundOO.apply(null)) ? backend.any() : boundOO.apply(null));
+        var foundS = backend.getValue(first.get(SPOC.SUBJECT));
+        var foundP = backend.getValue(first.get(SPOC.PREDICATE));
+        var foundO = backend.getValue(first.get(SPOC.OBJECT));
+
+        var foundSS = backend.getValue(second.get(SPOC.SUBJECT));
+        var foundPP = backend.getValue(second.get(SPOC.PREDICATE));
+        var foundOO = backend.getValue(second.get(SPOC.OBJECT));
 
         double sum = 0.;
+
         for (int i = 0; i < nbWalks; ++i) {
+            NodeId s = vars.contains(SS)? second.get(SPOC.SUBJECT): Objects.isNull(boundSS.apply(null))? backend.any(): boundSS.apply(null);
+            NodeId p = vars.contains(PP)? second.get(SPOC.PREDICATE): Objects.isNull(boundPP.apply(null))? backend.any(): boundPP.apply(null);
+            NodeId o = vars.contains(OO)? second.get(SPOC.OBJECT): Objects.isNull(boundOO.apply(null))? backend.any(): boundOO.apply(null);
+
+            String ssss = NodeId.isAny(s) ? "any" : backend.getValue(s);
+            String pppp = NodeId.isAny(p) ? "any" : backend.getValue(p);
+            String oooo = NodeId.isAny(o) ? "any" : backend.getValue(o);
+
+            ProgressJenaIterator secondTP =  getProgressJenaIterator(s, p, o);
+            // Double cardSecond = secondTP.cardinality(1000);
+
             Pair<Tuple<NodeId>, Double> randomSecond = getRandomAndProba(secondTP);
 
-            NodeId s= vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft());
-            NodeId p = vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft());
-            NodeId o = vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft());
+            NodeId ss = vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft());
+            NodeId pp = vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft());
+            NodeId oo = vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft());
 
-            String ss = NodeId.isAny(s) ? "any" : backend.getValue(s);
-            String pp = NodeId.isAny(p) ? "any" : backend.getValue(p);
-            String oo = NodeId.isAny(o) ? "any" : backend.getValue(o);
+            String sss = NodeId.isAny(ss) ? "any" : backend.getValue(ss);
+            String ppp = NodeId.isAny(pp) ? "any" : backend.getValue(pp);
+            String ooo = NodeId.isAny(oo) ? "any" : backend.getValue(oo);
 
-            ProgressJenaIterator firstTP = getProgressJenaIterator(
-                    vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft()),
-                    vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft()),
-                    vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft()));
+            ProgressJenaIterator firstTP = getProgressJenaIterator(ss, pp, oo);
 
-            Pair<Tuple<NodeId>, Double> randomFirst = firstTP.count() > 0 ? new ImmutablePair<>(null,0.):
-                    getRandomAndProba(firstTP);
+            Pair<Tuple<NodeId>, Double> randomFirst = getRandomAndProba(firstTP);
+
+            // Double cardFirst = firstTP.cardinality(1000);
 
             sum += Objects.isNull(randomFirst.getLeft()) ?
                     0: // (does nothing if the walk fails)
                     1./(randomFirst.getRight() * randomSecond.getRight()); // or add the proba
         }
+
+        //System.out.println(foundOO);
+        //System.out.println("card = " + sum/nbWalks);
 
         return sum/nbWalks;
     }
@@ -300,7 +333,5 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     public TwoTriplePatterns bindO(Node o) {
         return this.bindO(this.backend.getId(o));
     }
-
-
 
 }
