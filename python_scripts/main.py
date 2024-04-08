@@ -14,6 +14,7 @@ import seaborn as sns
 import re
 import logging
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
@@ -30,22 +31,24 @@ DATASET_SIZE = {'watdiv':10916457,'largerdf_dbpedia':42849609,'wdbench':12571699
 ndv = ndvEstimator()
 
 def calc_relative_error(gt, estimate):
-    return abs(gt - estimate) / gt * 100
+    return (estimate - gt) / gt * 100
 
 def read_csv_data(file_path, dictionary):
+    logger.info(f"Reading data from {file_path}")
     data = []
     with open(file_path, 'r', encoding='utf-8') as f:
-        reader = csv.reader(f, delimiter=',')
+        reader = csv.reader(f, delimiter=' ')
         next(reader)  # Skip the header if exists
         for row in reader:
             # Check if the row has two values
-            if len(row) == 2:
+            if len(row) == 3:
                 # Unpack the values
-                value, cd = row
+                value, cd,chao = row
                 value_id = dictionary.setdefault(value, len(dictionary))
                 try:
                     cd = float(cd)
-                    data.append((value_id, cd))
+                    chao = float(chao)
+                    data.append((value_id, cd,chao))
                 except ValueError:
                     print(f"Warning: Skipping line with invalid cd value: {row}")
     return np.array(data)
@@ -54,43 +57,52 @@ def ndv_estimator(values, n_pop):
     try:
         return ndv.sample_predict(values, n_pop)
     except:
-        return 0
+        return np.nan
 
 def horvitz_thompson(values, n_pop):
     try:
         return horvitz_thompson_estimator(values, n_pop)
     except:
-        return 0
+        return np.nan
 
 def smoothed_jackknife(values,n_pop = None):
     try:
         return smoothed_jackknife_estimator(values)
     except:
-        return 0
+        return np.nan
 
-def chao_lee(values, n_pop=None):
-    return chao_lee_estimator(values)
 
 def method_of_moments_v3(values, n_pop=None):
     try:
         return method_of_moments_v3_estimator(values)
     except:
-        return 0
+        return np.nan
 
+def chao_lee(values, n_pop=None):
+    try:
+        return chao_lee_estimator(values)
+    except:
+        return np.nan
 
-def run_estimator(estimator_func, table, num_rows, n_pop, GT):
+def run_estimator(estimator_func, table, num_rows, n_pop, gt):
     values = table[:num_rows, 0]
     estimator_result = estimator_func(values, n_pop)
-    relative_error_value = calc_relative_error(GT, estimator_result)
+    if not np.isnan(estimator_result):
+        relative_error_value = calc_relative_error( gt, estimator_result)
+        return estimator_result, relative_error_value
+    else:
+        return estimator_result, np.nan
 
-    return estimator_result, relative_error_value
+
 
 ESTIMATORS = {
         'ndv': ndv_estimator,
         'horvitz_thompson': horvitz_thompson,
         'smoothed_jackknife': smoothed_jackknife,
         'method_of_moments_v3': method_of_moments_v3,
-        'chao_lee': chao_lee
+        'crwd': None,
+        'chao_lee_N_j': None,
+        'chao_lee':chao_lee
     }
 
 
@@ -107,39 +119,52 @@ def read_gt_file(file_path):
 @click.option("--compared-errors",type= click.Path(exists = False, file_okay=True, dir_okay=False))
 @click.option("--estimator",type=click.STRING)
 @click.option("--dataset",type=click.STRING)
-def run_estimators(input_file, ground_truth, compared_results, compared_errors, estimator, dataset):
-    start = 0.005
+def run_estimators(input_file, ground_truth, compared_results, compared_errors, estimator, dataset,N = None):
+    start = 0
     stop = 0.1
-    step = 0.005
-    sample_sizes = [round(start + step * i, 3) for i in range(int((stop - start) / step) + 1)]
+    step_small = 0.0005
+    step_large = 0.0005
+    sample_sizes_small_step = [round(start + step_small * i, 4) for i in range(int(0.05 / step_small) + 1)]
+    sample_sizes_large_step = [round(0.05 + step_large * i, 4) for i in range(int((stop - 0.05) / step_large) + 1)]
+    sample_sizes = sample_sizes_small_step + sample_sizes_large_step[1:]
+    #logger.info(f"Sample sizes: {sample_sizes}")
+    # Read the input file
     dictionary = {}
     sample_table = read_csv_data(input_file, dictionary)
-
+    # Read the ground truth
     gt = read_gt_file(ground_truth)
-
-
-    if (dataset == 'watdiv'):
-        N = DATASET_SIZE['watdiv']
-    elif (dataset == 'wdbench'):
-        N = DATASET_SIZE['wdbench']
-    elif (dataset == 'largerdf_dbpedia'):
-        N = DATASET_SIZE['largerdf_dbpedia']
+    # Get the dataset size
+    if N is not None:
+        N = N
     else:
-        print("Error: Dataset not recognized.")
-        return
-    print(f"Dataset size: {N}")
-    print(f"Ground truth: {gt}")
+        if (dataset == 'watdiv'):
+            N = DATASET_SIZE['watdiv']
+        elif (dataset == 'wdbench'):
+            N = DATASET_SIZE['wdbench']
+        elif (dataset == 'largerdf_dbpedia'):
+            N = DATASET_SIZE['largerdf_dbpedia']
+        else:
+            print("Error: Dataset not recognized.")
+            return
+    logger.info(f"Dataset size: {N}")
+    logger.info(f"Ground truth: {gt}")
 
     estimator_func = ESTIMATORS[estimator]
 
     all_results = {}
     all_relative_errors = {}
-    print(f"Running {estimator} estimator")
     for sample_size in tqdm(sample_sizes):
-        results, relative_errors = run_estimator(estimator_func, sample_table, int(sample_size * N), N, gt)
-        logger.info(f"Sample size: {sample_size}, Result: {results}, Relative Error: {relative_errors}")
+        if estimator in ["ndv", "horvitz_thompson", "smoothed_jackknife", "method_of_moments_v3", "chao_lee"]:
+            results, relative_errors = run_estimator(estimator_func, sample_table, int(sample_size * N), N, gt)
+        elif estimator == "crwd":
+            results = sample_table[int(sample_size * N),1]
+            relative_errors = calc_relative_error(gt, results)
+        elif estimator == "chao_lee_N_j":
+            results = sample_table[int(sample_size * N),2]
+            relative_errors = calc_relative_error(gt, results)
+            #logger.info(f"Sample size: {sample_size}, Estimator: {estimator}, Result: {results}, Relative Error: {relative_errors}")
         if isinstance(results, np.ndarray):
-            all_results[sample_size] = results.item()
+                all_results[sample_size] = results.item()
         else:
             all_results[sample_size] = results
 
@@ -147,6 +172,7 @@ def run_estimators(input_file, ground_truth, compared_results, compared_errors, 
             all_relative_errors[sample_size] = relative_errors.item()
         else:
             all_relative_errors[sample_size] = relative_errors
+
     with open(compared_results, 'w') as f:
         json.dump(all_results, f)
 
@@ -156,11 +182,10 @@ def run_estimators(input_file, ground_truth, compared_results, compared_errors, 
 @cli.command()
 @click.argument("input-files", nargs=-1, type=click.Path(exists = True, file_okay=True, dir_okay=False))
 @click.argument("output-data-file", type=click.Path(exists=False, file_okay=True, dir_okay=False))
-@click.argument("output-plot-file", type=click.Path(exists=False, file_okay=True, dir_okay=False))
 @click.option("--dataset",type=click.STRING)
 @click.option("--ground-truth",type= click.Path(exists = True, file_okay=True, dir_okay=False))
 @click.option("--query",type=click.STRING)
-def merge_and_plot(input_files,output_data_file, output_plot_file,dataset, ground_truth,query):
+def merge_data(input_files,output_data_file,dataset, ground_truth,query):
     records = []
     for input_file in tqdm(input_files):
         _, _, estimator, run, _ = input_file.split('/')
@@ -176,48 +201,52 @@ def merge_and_plot(input_files,output_data_file, output_plot_file,dataset, groun
                     'run': run
                 })
 
-        gt = read_gt_file(ground_truth)
-        cd_path = f"{dataset}/sample/Run_{run}/{query}.csv"
-        cd_df = pd.read_csv(cd_path).reset_index()
-        cd_df = cd_df.rename(columns={'index':'nb_samples'})
-        cd_df['nb_samples'] = cd_df['nb_samples'] + 1
-        cd_df['sample_size'] = cd_df['nb_samples']/DATASET_SIZE[dataset]
-        cd_df["relative_error"] = cd_df["CD"].apply(lambda x: calc_relative_error(gt, x))
-        cd_df["estimator"] = "crwd"
-        cd_df["run"] = run
-        cd_df = cd_df[['sample_size', 'relative_error', 'estimator', 'run']]
-        records.extend(cd_df.to_dict('records'))
-
     df = pd.DataFrame.from_records(records)
-    logger.info(f"Written data to {output_data_file}")
-    df.to_csv(output_data_file, index=False)
-    # Check the data types of the columns
-    logger.info(f"Types of df {df.dtypes}")
+    df = df[['sample_size', 'relative_error', 'estimator', 'run']]
 
     # Convert columns to the correct data types if necessary
     df['sample_size'] = df['sample_size'].astype(float)
     df['relative_error'] = df['relative_error'].astype(float)
     df['estimator'] = df['estimator'].astype(str)
-    sns.set_theme(style="whitegrid")
-    # Group by 'estimator' and 'sample_size', calculate mean and standard deviation
-    grouped_df = df.groupby(['estimator', 'sample_size']).agg({'relative_error': ['mean', 'std']}).reset_index()
-    grouped_df.columns = ['estimator', 'sample_size', 'mean_relative_error', 'std_dev_relative_error']
 
-    # Merge mean and standard deviation back to original DataFrame
-    df = pd.merge(df, grouped_df, on=['estimator', 'sample_size'], how='left')
+    df.to_csv(output_data_file, index=False)
+    logger.info(f"Written data to {output_data_file}")
 
-    # Plotting with Seaborn
-    sns.set_theme(style="whitegrid")
-    plt.figure(figsize=(10, 6))
 
-    # Use seaborn lineplot with error bars
-    sns.lineplot(data=df, x="sample_size", y="mean_relative_error", hue="estimator")
+@cli.command()
+@click.argument("input-data-file", type=click.Path(exists=True, file_okay=True, dir_okay=False))
+@click.argument("output-plot-file", type=click.Path(exists=False, file_okay=True, dir_okay=False))
+def plot_data(input_data_file, output_plot_file):
+    df = pd.read_csv(input_data_file)
+    # Dictionary mapping estimator to color
+    estimator_colors = {
+        'ndv': 'black',
+        'horvitz_thompson': 'red',
+        'smoothed_jackknife': 'green',
+        'method_of_moments_v3': 'orange',
+        'crwd': 'blue',
+        'chao_lee_N_j': 'lightblue',
+        'chao_lee': 'purple'
+    }
+    # Format x-axis ticks as percentages
+    def format_percent_x(x, pos):
+        return '{:.0%}'.format(x)
+    # Format y-axis ticks as percentages
+    def format_percent_y(y, pos):
+        return str(int(y)) + '%'
+    plt.clf()
+    plt.figure(figsize=(10, 8))
+    sns.set_style("whitegrid", {'grid.linestyle': '--', 'grid.linewidth': 0.1})
+    p=sns.lineplot(data=df,x='sample_size', y='relative_error', hue='estimator',estimator='mean',err_style="band",errorbar="sd", palette=estimator_colors)
+    p.set(xlabel='sample size', ylabel='relative error')
+    plt.xlim(0, 0.1)
+    plt.ylim(-100, 100)
 
-    plt.xlabel('Sample Size')
-    plt.ylabel('Relative Error (%)')
+    plt.gca().xaxis.set_major_formatter(mtick.FuncFormatter(format_percent_x))
+    plt.gca().yaxis.set_major_formatter(mtick.FuncFormatter(format_percent_y))
     plt.legend()
     plt.savefig(output_plot_file)
-    plt.show()
+
 
 
 if __name__ == "__main__":

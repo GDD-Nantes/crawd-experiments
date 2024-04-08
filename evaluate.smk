@@ -21,7 +21,7 @@ else:
 
 estimators = config.get("estimators")
 if estimators is None:
-    estimators = ["chao_lee","horvitz_thompson","smoothed_jackknife","ndv","method_of_moments_v3"]
+    estimators = ["crwd","chao_lee_N_j","horvitz_thompson","smoothed_jackknife","ndv","method_of_moments_v3","chao_lee"]
 else:
     estimators = estimators.strip().split(",")
 
@@ -33,19 +33,28 @@ rule all:
                query=queries
         )
 
-rule merge_and_plot:
+rule plot_data:
+    input:
+        "{dataset}/final_csv/{query}.csv"
+    output:
+        "{dataset}/figures/{query}.png"
+    run:
+        shell(f"""
+        python python_scripts/main.py plot-data {input} {output}
+        """)
+
+rule merge_data:
     input:
         expand("{{dataset}}/compared_errors/{estimator}/Run_{attempt}/{{query}}.json",
             estimator=estimators,
             attempt=runs
         )
     output:
-        "{dataset}/final_csv/{query}.csv",
-        "{dataset}/figures/{query}.png"
+        "{dataset}/final_csv/{query}.csv"
     run:
         ground_truth=f"{wildcards.dataset}/GT/{wildcards.query}_formatted.csv"
         shell(f"""
-        python python_scripts/main.py merge-and-plot {input} {output[0]} {output[1]} \
+        python python_scripts/main.py merge-data {input} {output}  \
             --dataset={wildcards.dataset} \
             --ground-truth={ground_truth} \
             --query={wildcards.query}

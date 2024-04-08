@@ -1,11 +1,13 @@
 package fr.gdd;
 
+import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 
 public class TEST {
     public static String watdiv_path = "/GDD/WATDIV";
@@ -50,23 +52,6 @@ public class TEST {
 
     }
 
-    @Disabled
-    @Test
-    public void groupby_classTEST() throws IOException {
-
-        String watdiv = "/GDD/Thi/count-distinct-sampling/watdiv/sample/groupby_class/CDo/SACSPO_CDo.csv";
-        SACSPO.getSampleSaCSPO_CDo_GROUPBY_CLASS(watdiv_path, watdiv, 1_100_000, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
-        System.out.println("done watdiv");
-
-        String dbpedia = "/GDD/Thi/count-distinct-sampling/largerdf_dbpedia/sample/groupby_class/CDo/SACSPO_CDo.csv";
-        SACSPO.getSampleSaCSPO_CDo_GROUPBY_CLASS_dbpedia(dbpedia_path, dbpedia, 4_500_000, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
-        System.out.println("done dbpedia");
-
-        String wdbench = "/GDD/Thi/count-distinct-sampling/wdbench/sample/groupby_class/CDo/SACSPO_CDo.csv";
-        SACSPO.getSampleSaCSPO_CDo_GROUPBY_CLASS(wdbench_path, wdbench, 13_000_000, "<http://www.wikidata.org/prop/direct/P131>");
-
-
-    }
 
 
     @Disabled
@@ -101,20 +86,20 @@ public class TEST {
     public void SPO_watdiv() throws IOException {
 
         String watdivPath = "/GDD/Thi/count-distinct-sampling/watdiv/sample/";
-        int iterations = 1;
+        int iterations = 5;
         int dataSize = 1_100_000;
 
         for (int i = 1; i <= iterations; i++) {
             String iterationDirectory = watdivPath + "Run_" + i + "/";
             Files.createDirectories(Paths.get(iterationDirectory));
-
-            //String outputCDo = iterationDirectory + "SPO_CDo.csv";
+            ProgressJenaIterator.rng = new Random(i);
+            String outputCDo = iterationDirectory + "SPO_CDo.csv";
             String outputCDs = iterationDirectory + "SPO_CDs.csv";
-            //String outputCDp = iterationDirectory + "SPO_CDp.csv";
+            String outputCDp = iterationDirectory + "SPO_CDp.csv";
 
-            //SPO.CDo(watdiv_path, outputCDo, dataSize);
+            SPO.CDo(watdiv_path, outputCDo, dataSize);
             SPO.CDs(watdiv_path, outputCDs, dataSize);
-            //SPO.CDp(watdiv_path, outputCDp, dataSize);
+            SPO.CDp(watdiv_path, outputCDp, dataSize);
 
             System.out.println("WATDIV: Done iteration " + i);
         }
@@ -127,10 +112,10 @@ public class TEST {
         int iterations = 5;
         int dataSize = 4_500_000;
 
-        for (int i = 1; i <= iterations; i++) {
+        for (int i = 3; i <= iterations; i++) {
             String iterationDirectory = dbpediaPath + "Run_" + i + "/";
             Files.createDirectories(Paths.get(iterationDirectory));
-
+            ProgressJenaIterator.rng = new Random(i);
             String outputCDo = iterationDirectory + "SPO_CDo.csv";
             String outputCDs = iterationDirectory + "SPO_CDs.csv";
             String outputCDp = iterationDirectory + "SPO_CDp.csv";
@@ -143,7 +128,7 @@ public class TEST {
         }
     }
     @Disabled
-    @Test
+    @Test //last minute to run this test. May be
     public void SPO_wdbench() throws IOException {
         String wdbenchPath = "/GDD/Thi/count-distinct-sampling/wdbench/sample/";
         int iterations = 5;
@@ -152,7 +137,7 @@ public class TEST {
         for (int i = 1; i <= iterations; i++) {
             String iterationDirectory = wdbenchPath + "Run_" + i + "/";
             Files.createDirectories(Paths.get(iterationDirectory));
-
+            ProgressJenaIterator.rng = new Random(i);
             String outputCDo = iterationDirectory + "SPO_CDo.csv";
             String outputCDs = iterationDirectory + "SPO_CDs.csv";
             String outputCDp = iterationDirectory + "SPO_CDp.csv";
@@ -164,5 +149,41 @@ public class TEST {
             System.out.println("WDBENCH: Done iteration " + i);
         }
     }
+
+    @Disabled
+    @Test
+    public void groupby_classTEST() throws IOException {
+
+        String watdivPath = "/GDD/Thi/count-distinct-sampling/watdiv/sample/groupby_class/";
+        int iterations = 1;
+        int dataSize = 526_410;
+
+        for (int i = 1; i <= iterations; i++) {
+            String iterationDirectory = watdivPath + "Run_" + i + "/";
+            Files.createDirectories(Paths.get(iterationDirectory));
+            ProgressJenaIterator.rng = new Random(i);
+            String outputCDo = iterationDirectory + "SACSPO_CDo.csv";
+            SACSPO.getSampleSaCSPO_CDo_GROUPBY_CLASS(watdiv_path, outputCDo, dataSize, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
+            System.out.println("WATDIV: Done iteration " + i);
+        }
+
+    }
+
+    @Disabled
+    @Test
+    public void accept_reject() throws IOException {
+        String watdivPath = "/GDD/Thi/count-distinct-sampling/watdiv/sample/accept_reject/";
+        int iterations = 1;
+        int dataSize = 526_410;
+
+        for (int i = 1; i <= iterations; i++) {
+            String iterationDirectory = watdivPath + "Run_" + i + "/";
+            Files.createDirectories(Paths.get(iterationDirectory));
+            ProgressJenaIterator.rng = new Random(i);
+            String outputCDo = iterationDirectory + "SACSPO_CDo_AR.csv";
+            SACSPO.Accept_Reject_SaCSPO_CDo_Role0("/GDD/WATDIV2", outputCDo, dataSize);
+        }
+    }
+
 
 }
