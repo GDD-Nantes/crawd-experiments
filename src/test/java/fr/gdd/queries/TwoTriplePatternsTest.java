@@ -37,11 +37,13 @@ class TwoTriplePatternsTest {
                 .setStep(10)
                 .setUniform(false)
                 .setSeed(1)
-                .setEstimatedCount(100))
+                .setEstimatedCount(1000))
                 .fixN(); // must be after binds and estimator
 
 
-        while(twoTPs.getNbSteps() < 10*twoTPs.getBigN()/100) {
+        System.out.println(10*twoTPs.getBigN()/100);
+        // while(twoTPs.getNbSteps() < 10*twoTPs.getBigN()/100) {
+        while(twoTPs.getNbSteps() < 1_000_000) {
             Double estimate = twoTPs.sample();
             System.out.printf("%s %.2f %.2f%n", twoTPs.getNbSteps(), estimate,
                     OneTriplePatternTest.getRelativeErrorPercent(WATDIV_MOST_FREQUENT_CLASS_DISTINCT_O, estimate));

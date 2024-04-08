@@ -3,12 +3,14 @@ package fr.gdd.queries;
 import fr.gdd.estimators.CountDistinctEstimator;
 import fr.gdd.sage.generics.LazyIterator;
 import fr.gdd.sage.jena.JenaBackend;
+import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
 import org.apache.jena.tdb2.store.NodeId;
 
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConfigCountDistinctQuery {
 
@@ -71,6 +73,7 @@ public class ConfigCountDistinctQuery {
         return this;
     }
 
+    // TODO multiple estimators
     /**
      * @param estimator The estimator to run at each step.
      * @return this.
@@ -110,4 +113,9 @@ public class ConfigCountDistinctQuery {
     public CountDistinctEstimator<?> getEstimator() {
         return estimator;
     }
+
+    protected Set<NodeId> getNodeIds(Tuple<NodeId> triple) {
+        return vars.stream().map(triple::get).collect(Collectors.toSet());
+    }
+
 }

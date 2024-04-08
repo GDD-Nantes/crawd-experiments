@@ -75,10 +75,6 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
         }
     }
 
-    protected Set<NodeId> getNodeIds(Tuple<NodeId> triple) {
-        return vars.stream().map(triple::get).collect(Collectors.toSet());
-    }
-
     /* ********************************************************************* */
 
     public OneTriplePattern bindS(NodeId s) {

@@ -39,7 +39,11 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
     @Override
     public CountDistinctEstimator<ChaoLeeSample> add(ChaoLeeSample newSample) {
         ++sampleSize;
-        sumOfProba += 1./newSample.proba;
+
+        sumOfProba += Objects.isNull(newSample.proba) || newSample.proba == 0. ?
+                0.: // failed RW
+                1./newSample.proba; // success
+
         if (!distincts.contains(newSample.element)) {
             this.distincts.add(newSample.element);
             sumOfNj += newSample.frequency;
