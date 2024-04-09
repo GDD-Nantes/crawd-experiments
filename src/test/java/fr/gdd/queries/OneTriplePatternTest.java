@@ -32,7 +32,7 @@ class OneTriplePatternTest {
                 .fixN();
 
         while(spoExperiment.getNbSteps() < 10_000_000) {
-            Double estimate = spoExperiment.sample();
+            Double estimate = spoExperiment.sample().get(Set.of());
             System.out.printf("%s %.2f %f%n", spoExperiment.getNbSteps(), estimate, getRelativeError(WATDIV_DISTINCT_P, estimate));
         }
     }

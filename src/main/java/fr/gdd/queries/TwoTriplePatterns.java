@@ -15,6 +15,7 @@ import org.apache.jena.tdb2.store.NodeId;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * This time, two triples patterns. Not that complicated either.
@@ -43,6 +44,9 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      */
     public TwoTriplePatterns(JenaBackend backend, Set<Integer> vars) {
         super(backend, vars);
+        boundS  = (t) -> backend.any();
+        boundP  = (t) -> backend.any();
+        boundO  = (t) -> backend.any();
         boundSS = (t) -> backend.any();
         boundPP = (t) -> backend.any();
         boundOO = (t) -> backend.any();
@@ -92,11 +96,21 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     }
 
     @Override
-    public Double sample() {
+    public Map<Set<NodeId>, Double> sample() {
         ProgressJenaIterator firstTP =  getProgressJenaIterator(boundS.apply(null), boundP.apply(null), boundO.apply(null));
+
         for (int i = 0; i < step; ++i) {
             nbSteps += 1;
             Pair<Tuple<NodeId>, Double> firstRandom = getRandomAndProba(firstTP);
+
+            // very ugly TODO get Proba of an SPOC in a triple pattern.
+            if (Objects.nonNull(groupBy) && (groupBy.contains(SPOC.SUBJECT) || groupBy.contains(SPOC.PREDICATE) || groupBy.contains(SPOC.OBJECT))) {
+                NodeId s = groupBy.contains(SPOC.SUBJECT) ? firstRandom.getLeft().get(SPOC.SUBJECT) : boundS.apply(null);
+                NodeId p = groupBy.contains(SPOC.PREDICATE) ? firstRandom.getLeft().get(SPOC.PREDICATE) : boundP.apply(null);
+                NodeId o = groupBy.contains(SPOC.OBJECT) ? firstRandom.getLeft().get(SPOC.OBJECT) : boundO.apply(null);
+                firstTP = getProgressJenaIterator(s, p, o);
+                firstRandom = getRandomAndProba(firstTP);
+            }
 
             ProgressJenaIterator secondTP = getProgressJenaIterator(
                     boundSS.apply(firstRandom.getLeft()),
@@ -105,16 +119,37 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
 
             Pair<Tuple<NodeId>, Double> secondRandom = getRandomAndProba(secondTP);
 
-            // TODO if groupBy, get vars of groupBy, get estimators or create it.
+            if (Objects.nonNull(groupBy) && (groupBy.contains(SS) || groupBy.contains(PP) || groupBy.contains(OO))) {
+                NodeId ss = groupBy.contains(SS) ? secondRandom.getLeft().get(SPOC.SUBJECT) : boundS.apply(firstRandom.getLeft());
+                NodeId pp = groupBy.contains(PP) ? secondRandom.getLeft().get(SPOC.PREDICATE) : boundP.apply(firstRandom.getLeft());
+                NodeId oo = groupBy.contains(OO) ? secondRandom.getLeft().get(SPOC.OBJECT) : boundO.apply(firstRandom.getLeft());
+                secondTP = getProgressJenaIterator(ss, pp, oo);
+                secondRandom = getRandomAndProba(firstTP);
+            }
+
+
             this.addSample(firstRandom, secondRandom, getCount(firstRandom.getLeft(), secondRandom.getLeft()));
         }
-        return estimator.getEstimate();
+        return Objects.isNull(groupBy) ?
+                Map.of(Set.of(), estimator.getEstimate()) :
+                groupedBy.keySet().stream().map(k-> Map
+                        .entry(k, groupedBy.get(k).getEstimate()))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     protected void addSample(Pair<Tuple<NodeId>, Double> first, Pair<Tuple<NodeId>, Double> second, Double frequency) {
-        switch (estimator) {
+        CountDistinctEstimator chosenEstimator = this.estimator;
+        if (Objects.nonNull(groupBy)) {
+            Set<NodeId> groupByVars = getNodeIds(groupBy, mergeTuples(first.getLeft(), second.getLeft()));
+            if (!groupedBy.containsKey(groupByVars)) {
+                groupedBy.put(groupByVars, this.estimator.create());
+            }
+            chosenEstimator = groupedBy.get(groupByVars);
+        }
+        
+        switch (chosenEstimator) {
             case ChaoLee cl -> {
-                Set<NodeId> distincts = getNodeIds(mergeTuples(first.getLeft(), second.getLeft()));
+                Set<NodeId> distincts = getNodeIds(vars, mergeTuples(first.getLeft(), second.getLeft()));
                 cl.add(new ChaoLee.ChaoLeeSample(distincts, first.getRight() * second.getRight(), frequency));
             }
             // TODO Math.max replaced by the found element frequency
@@ -182,19 +217,32 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
         double sum = 0.;
 
         for (int i = 0; i < nbWalks; ++i) {
-            NodeId s = vars.contains(SS)? second.get(SPOC.SUBJECT): Objects.isNull(boundSS.apply(null))? backend.any(): boundSS.apply(null);
-            NodeId p = vars.contains(PP)? second.get(SPOC.PREDICATE): Objects.isNull(boundPP.apply(null))? backend.any(): boundPP.apply(null);
-            NodeId o = vars.contains(OO)? second.get(SPOC.OBJECT): Objects.isNull(boundOO.apply(null))? backend.any(): boundOO.apply(null);
+            NodeId s = groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
+                    vars.contains(SS)? second.get(SPOC.SUBJECT): Objects.isNull(boundSS.apply(null))? backend.any(): boundSS.apply(null);
+            NodeId p = groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
+                    vars.contains(PP)? second.get(SPOC.PREDICATE): Objects.isNull(boundPP.apply(null))? backend.any(): boundPP.apply(null);
+            NodeId o = groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
+                    vars.contains(OO)? second.get(SPOC.OBJECT): Objects.isNull(boundOO.apply(null))? backend.any(): boundOO.apply(null);
 
             ProgressJenaIterator secondTP =  getProgressJenaIterator(s, p, o);
             Pair<Tuple<NodeId>, Double> randomSecond = getRandomAndProba(secondTP);
 
-            NodeId ss = vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft());
-            NodeId pp = vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft());
-            NodeId oo = vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft());
+            NodeId ss = groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
+                    vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft());
+            NodeId pp = groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
+                    vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft());
+            NodeId oo = groupBy.contains(SPOC.OBJECT)? first.get(SPOC.OBJECT) :
+                    vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft());
 
             ProgressJenaIterator firstTP = getProgressJenaIterator(ss, pp, oo);
             Pair<Tuple<NodeId>, Double> randomFirst = getRandomAndProba(firstTP);
+
+            /* String sVal = NodeId.isAny(s) ? "any": backend.getValue(s);
+            String pVal = NodeId.isAny(p) ? "any": backend.getValue(p);
+            String oVal = NodeId.isAny(o) ? "any": backend.getValue(o);
+            String ssVal = NodeId.isAny(ss) ? "any": backend.getValue(ss);
+            String ppVal = NodeId.isAny(pp) ? "any": backend.getValue(pp);
+            String ooVal = NodeId.isAny(oo) ? "any": backend.getValue(oo);*/
 
             sum += Objects.isNull(randomFirst.getLeft()) ?
                     0: // (does nothing if the walk fails)

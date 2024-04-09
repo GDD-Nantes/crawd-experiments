@@ -30,6 +30,11 @@ public class CRWD implements CountDistinctEstimator<CRWD.CRWDSample> {
     }
 
     @Override
+    public CountDistinctEstimator create() {
+        return new CRWD();
+    }
+
+    @Override
     public CountDistinctEstimator<CRWDSample> add(CRWDSample newSample) {
         boolean failed = Objects.isNull(newSample.probaOfElement) || newSample.probaOfElement == 0.;
         sumBigN += failed ?  0.: 1./newSample.probaOfElement;

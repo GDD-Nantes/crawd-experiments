@@ -37,6 +37,11 @@ public class ChaoLee implements CountDistinctEstimator<ChaoLee.ChaoLeeSample> {
     }
 
     @Override
+    public CountDistinctEstimator create() {
+        return new ChaoLee();
+    }
+
+    @Override
     public CountDistinctEstimator<ChaoLeeSample> add(ChaoLeeSample newSample) {
         ++sampleSize;
 
