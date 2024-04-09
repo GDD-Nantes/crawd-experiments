@@ -66,6 +66,10 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
         return this;
     }
 
+    /**
+     * @return The number of results of the 2 triple pattern queries without
+     * considering groupByes.
+     */
     public Double getBigN() {
         if (Objects.nonNull(bigN)) {
             return bigN;
@@ -146,7 +150,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
             }
             chosenEstimator = groupedBy.get(groupByVars);
         }
-        
+
         switch (chosenEstimator) {
             case ChaoLee cl -> {
                 Set<NodeId> distincts = getNodeIds(vars, mergeTuples(first.getLeft(), second.getLeft()));
@@ -165,11 +169,15 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     }
 
     protected Double count(Tuple<NodeId> first, Tuple<NodeId> second) {
+        // TODO make it work with group by
         double result = 0.;
         ProgressJenaIterator firstTP =  getProgressJenaIterator(
-                vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(null),
-                vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(null),
-                vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(null));
+                groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
+                        vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(null),
+                groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
+                        vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(null),
+                groupBy.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) :
+                        vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(null));
 
         PreemptJenaIterator firstIt = (PreemptJenaIterator) firstTP;
 
@@ -178,9 +186,12 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
             Tuple<NodeId> currentTuple = firstIt.getCurrentTuple();
 
             ProgressJenaIterator secondTP =  getProgressJenaIterator(
-                    vars.contains(SS) ? second.get(SPOC.SUBJECT) : boundSS.apply(currentTuple),
-                    vars.contains(PP) ? second.get(SPOC.PREDICATE) : boundPP.apply(currentTuple),
-                    vars.contains(OO) ? second.get(SPOC.OBJECT) : boundOO.apply(currentTuple));
+                    groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
+                            vars.contains(SS) ? second.get(SPOC.SUBJECT) : boundSS.apply(currentTuple),
+                    groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
+                            vars.contains(PP) ? second.get(SPOC.PREDICATE) : boundPP.apply(currentTuple),
+                    groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
+                            vars.contains(OO) ? second.get(SPOC.OBJECT) : boundOO.apply(currentTuple));
             PreemptJenaIterator secondIt = (PreemptJenaIterator) secondTP;
             result += secondIt.count();
         }
@@ -189,6 +200,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     }
 
     protected Double estimatedCountTP1xTP2(Tuple<NodeId> first, Tuple<NodeId> second, Integer nbWalks) {
+        // TODO make it work with group by
         ProgressJenaIterator firstTP =  getProgressJenaIterator(
                 vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(null),
                 vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(null),
