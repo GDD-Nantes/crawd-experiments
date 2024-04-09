@@ -23,6 +23,7 @@ public class CRWD implements CountDistinctEstimator<CRWD.CRWDSample> {
      * @param bigN The fixed big N that states the size of the full data.
      * @return this for convenience
      */
+    @Override
     public CRWD fixN (Double bigN) {
         this.bigN = bigN;
         return this;
@@ -35,7 +36,7 @@ public class CRWD implements CountDistinctEstimator<CRWD.CRWDSample> {
 
         if (Objects.nonNull(newSample.frequency)) {
             sumOfProbas += 1./newSample.probaOfElement;
-            sumOfProbaOverNj += (newSample.probaOfElement / newSample.frequency);
+            sumOfProbaOverNj += ((1./newSample.probaOfElement) / newSample.frequency);
         }
         return this;
     }

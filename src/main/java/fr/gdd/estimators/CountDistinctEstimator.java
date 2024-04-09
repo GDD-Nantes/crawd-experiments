@@ -19,4 +19,10 @@ public interface CountDistinctEstimator<T> {
      */
     Double getEstimate();
 
+    /**
+     * Most estimators work better when N is known.
+     * @param n The total number of elements including duplicates.
+     */
+    CountDistinctEstimator<T> fixN(Double n);
+
 }

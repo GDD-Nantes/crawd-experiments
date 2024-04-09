@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class SPO {
     static JenaBackend backend = null;
@@ -43,7 +44,8 @@ public class SPO {
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
 
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(sub, count));
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sub), sporwR.getRight(), sR.count()));
+
 
                 writer.printf("%s %f %f%n", subject,estimateS, chaoLee.getEstimate());
                 i++;
@@ -75,7 +77,7 @@ public class SPO {
                 sum_s += (1/ count);
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(sporw.get(1), count));
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sporw.get(1)),sporwR.getRight(), count));
 
                 writer.printf("%s %f %f%n", subject,estimateS, chaoLee.getEstimate());
                 i++;
@@ -103,7 +105,7 @@ public class SPO {
                 sum_p += (1/ count);
                 sum_p_for_N += (1 / sporwR.getRight());
                 double estimateP = ((sum_p_for_N/i)/i) * sum_p;
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(pId, count));
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(pId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", predicate, estimateP, chaoLee.getEstimate());
                 i++;
             }
@@ -133,7 +135,7 @@ public class SPO {
                 sum_p += (1/ count);
                 sum_p_for_N += (1 / sporwR.getRight());
                 double estimateP = ((sum_p_for_N/i)/i) * sum_p;
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(pId, count));
+                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(pId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", predicate, estimateP, chaoLee.getEstimate());
                 i++;
             }
@@ -160,7 +162,7 @@ public class SPO {
                 sum_o += (1/ count);
                 sum_o_for_N += (1 / sporwR.getRight());
                 double estimateO = ((sum_o_for_N/i)/i) * sum_o;
-                chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(oId, count));
+                chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(oId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", object, estimateO, chaoLee.getEstimate());
                 i++;
             }
@@ -188,7 +190,7 @@ public class SPO {
                 sum_o += (1/ count);
                 sum_o_for_N += (1 / sporwR.getRight());
                 double estimateO = ((sum_o_for_N/i)/i) * sum_o;
-                chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(oId, count));
+                chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(oId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", object, estimateO, chaoLee.getEstimate());
                 i++;
             }

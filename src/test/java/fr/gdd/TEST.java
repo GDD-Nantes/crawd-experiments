@@ -41,16 +41,6 @@ public class TEST {
         QC.QC6("/GDD/WATDIV", outputfileQC6, 1000, "<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>");
     }
 
-    @Disabled
-    @Test
-    public void groupby_class_predicateTEST() throws IOException {
-
-        String outputfileGroupBy_CDs = "/GDD/Thi/count-distinct-sampling/watdiv/sample/groupby_class_predicate/CDs/SACSPO_CDs.csv";
-        SACSPO.getSampleSaCSPO_CDs_GROUPBY_CLASS_PREDICATE("/GDD/WATDIV", outputfileGroupBy_CDs, 100000, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
-        String outputfileGroupBy_CDo = "/GDD/Thi/count-distinct-sampling/watdiv/sample/groupby_class_predicate/CDo/SACSPO_CDo.csv";
-        SACSPO.getSampleSaCSPO_CDo_GROUPBY_CLASS_PREDICATE("/GDD/WATDIV", outputfileGroupBy_CDo, 100000, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
-
-    }
 
 
 
@@ -109,10 +99,10 @@ public class TEST {
     @Test
     public void SPO_dbpedia() throws IOException {
         String dbpediaPath = "/GDD/Thi/count-distinct-sampling/largerdf_dbpedia/sample/";
-        int iterations = 5;
+        int iterations = 1;
         int dataSize = 4_500_000;
 
-        for (int i = 3; i <= iterations; i++) {
+        for (int i = 1; i <= iterations; i++) {
             String iterationDirectory = dbpediaPath + "Run_" + i + "/";
             Files.createDirectories(Paths.get(iterationDirectory));
             ProgressJenaIterator.rng = new Random(i);
@@ -131,7 +121,7 @@ public class TEST {
     @Test //last minute to run this test. May be
     public void SPO_wdbench() throws IOException {
         String wdbenchPath = "/GDD/Thi/count-distinct-sampling/wdbench/sample/";
-        int iterations = 5;
+        int iterations = 1;
         int dataSize = 130_000_000;
 
         for (int i = 1; i <= iterations; i++) {
