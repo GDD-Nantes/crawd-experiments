@@ -10,9 +10,9 @@ import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
 import org.apache.jena.graph.Node;
 import org.apache.jena.tdb2.store.NodeId;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Distinct of ?s or ?p or ?o in simple pattern like SPO.
@@ -35,11 +35,8 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
         this.boundO = backend.any();
     }
 
-    /**
-     * Perform a sampling based on current configuration.
-     * @return The estimated count-distinct.
-     */
-    public Double sample() {
+    @Override
+    public Map<Set<NodeId>, Double> sample() {
         ProgressJenaIterator spo =  getProgressJenaIterator(boundS, boundP, boundO);
         for (int i = 0; i < step; ++i) {
             nbSteps += 1;
@@ -53,7 +50,7 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
 
             this.addSample(randomAndProba, count);
         }
-        return estimator.getEstimate();
+        return Map.of(Set.of(), estimator.getEstimate());
     }
 
     public OneTriplePattern fixN() {
@@ -69,14 +66,10 @@ public class OneTriplePattern extends ConfigCountDistinctQuery {
      */
     protected void addSample(Pair<Tuple<NodeId>, Double> spo, Double frequency) {
         switch (estimator) {
-            case ChaoLee cl -> cl.add(new ChaoLee.ChaoLeeSample(getNodeIds(spo.getLeft()), spo.getRight(), frequency));
+            case ChaoLee cl -> cl.add(new ChaoLee.ChaoLeeSample(getNodeIds(vars, spo.getLeft()), spo.getRight(), frequency));
             case CRWD crwd -> crwd.add(new CRWD.CRWDSample(spo.getRight(), frequency));
             default -> throw new UnsupportedOperationException("The estimator is not supported: "+estimator.getClass().getSimpleName());
         }
-    }
-
-    protected Set<NodeId> getNodeIds(Tuple<NodeId> triple) {
-        return vars.stream().map(triple::get).collect(Collectors.toSet());
     }
 
     /* ********************************************************************* */

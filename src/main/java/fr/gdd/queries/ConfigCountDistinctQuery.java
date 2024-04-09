@@ -3,12 +3,12 @@ package fr.gdd.queries;
 import fr.gdd.estimators.CountDistinctEstimator;
 import fr.gdd.sage.generics.LazyIterator;
 import fr.gdd.sage.jena.JenaBackend;
+import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.apache.jena.dboe.trans.bplustree.ProgressJenaIterator;
 import org.apache.jena.tdb2.store.NodeId;
 
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ConfigCountDistinctQuery {
 
@@ -27,7 +27,12 @@ public class ConfigCountDistinctQuery {
         this.backend = backend;
     }
 
-    public Double sample() {throw new UnsupportedOperationException("sample");}
+    /**
+     * @return The new estimate(s) as a map from grouped keys to estimate. When there are
+     * no group keys, the only key is the empty set: {}->estimate.
+     */
+    public Map<Set<NodeId>, Double> sample() {throw new UnsupportedOperationException("sample");}
+
     public ConfigCountDistinctQuery fixN() {throw new UnsupportedOperationException("fixN");}
 
     protected ProgressJenaIterator getProgressJenaIterator(NodeId s, NodeId p, NodeId o) {
@@ -71,6 +76,7 @@ public class ConfigCountDistinctQuery {
         return this;
     }
 
+    // TODO multiple estimators
     /**
      * @param estimator The estimator to run at each step.
      * @return this.
@@ -110,4 +116,9 @@ public class ConfigCountDistinctQuery {
     public CountDistinctEstimator<?> getEstimator() {
         return estimator;
     }
+
+    protected static Set<NodeId> getNodeIds(Set<Integer> vars, Tuple<NodeId> bindings) {
+        return vars.stream().map(bindings::get).collect(Collectors.toSet());
+    }
+
 }

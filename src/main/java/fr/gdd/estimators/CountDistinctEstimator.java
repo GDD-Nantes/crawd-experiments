@@ -25,4 +25,8 @@ public interface CountDistinctEstimator<T> {
      */
     CountDistinctEstimator<T> fixN(Double n);
 
+    /**
+     * @return A brand new instance of this estimator.
+     */
+    CountDistinctEstimator create();
 }
