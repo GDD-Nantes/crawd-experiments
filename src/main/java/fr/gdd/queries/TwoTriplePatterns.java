@@ -84,7 +84,9 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
         double sum = 0.;
         while (itFirst.hasNext()) {
             itFirst.next();
-            Tuple<NodeId> spo = itFirst.getCurrentTuple();
+            Tuple<NodeId> spo = TupleFactory.create3(itFirst.getId(SPOC.SUBJECT),
+                    itFirst.getId(SPOC.PREDICATE),
+                    itFirst.getId(SPOC.OBJECT));
 
             NodeId ss = boundSS.apply(spo);
             NodeId pp = boundPP.apply(spo);
@@ -169,14 +171,13 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     }
 
     protected Double count(Tuple<NodeId> first, Tuple<NodeId> second) {
-        // TODO make it work with group by
         double result = 0.;
         ProgressJenaIterator firstTP =  getProgressJenaIterator(
-                groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
+                Objects.nonNull(groupBy) && groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
                         vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(null),
-                groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
+                Objects.nonNull(groupBy) && groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
                         vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(null),
-                groupBy.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) :
+                Objects.nonNull(groupBy) && groupBy.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) :
                         vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(null));
 
         PreemptJenaIterator firstIt = (PreemptJenaIterator) firstTP;
@@ -186,11 +187,11 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
             Tuple<NodeId> currentTuple = firstIt.getCurrentTuple();
 
             ProgressJenaIterator secondTP =  getProgressJenaIterator(
-                    groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
+                    Objects.nonNull(groupBy) && groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
                             vars.contains(SS) ? second.get(SPOC.SUBJECT) : boundSS.apply(currentTuple),
-                    groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
+                    Objects.nonNull(groupBy) && groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
                             vars.contains(PP) ? second.get(SPOC.PREDICATE) : boundPP.apply(currentTuple),
-                    groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
+                    Objects.nonNull(groupBy) && groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
                             vars.contains(OO) ? second.get(SPOC.OBJECT) : boundOO.apply(currentTuple));
             PreemptJenaIterator secondIt = (PreemptJenaIterator) secondTP;
             result += secondIt.count();
@@ -229,21 +230,21 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
         double sum = 0.;
 
         for (int i = 0; i < nbWalks; ++i) {
-            NodeId s = groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
+            NodeId s = Objects.nonNull(groupBy) && groupBy.contains(SS) ? second.get(SPOC.SUBJECT) :
                     vars.contains(SS)? second.get(SPOC.SUBJECT): Objects.isNull(boundSS.apply(null))? backend.any(): boundSS.apply(null);
-            NodeId p = groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
+            NodeId p = Objects.nonNull(groupBy) && groupBy.contains(PP) ? second.get(SPOC.PREDICATE) :
                     vars.contains(PP)? second.get(SPOC.PREDICATE): Objects.isNull(boundPP.apply(null))? backend.any(): boundPP.apply(null);
-            NodeId o = groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
+            NodeId o = Objects.nonNull(groupBy) && groupBy.contains(OO) ? second.get(SPOC.OBJECT) :
                     vars.contains(OO)? second.get(SPOC.OBJECT): Objects.isNull(boundOO.apply(null))? backend.any(): boundOO.apply(null);
 
             ProgressJenaIterator secondTP =  getProgressJenaIterator(s, p, o);
             Pair<Tuple<NodeId>, Double> randomSecond = getRandomAndProba(secondTP);
 
-            NodeId ss = groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
+            NodeId ss = Objects.nonNull(groupBy) && groupBy.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) :
                     vars.contains(SPOC.SUBJECT) ? first.get(SPOC.SUBJECT) : boundS.apply(randomSecond.getLeft());
-            NodeId pp = groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
+            NodeId pp = Objects.nonNull(groupBy) && groupBy.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) :
                     vars.contains(SPOC.PREDICATE) ? first.get(SPOC.PREDICATE) : boundP.apply(randomSecond.getLeft());
-            NodeId oo = groupBy.contains(SPOC.OBJECT)? first.get(SPOC.OBJECT) :
+            NodeId oo = Objects.nonNull(groupBy) && groupBy.contains(SPOC.OBJECT)? first.get(SPOC.OBJECT) :
                     vars.contains(SPOC.OBJECT) ? first.get(SPOC.OBJECT) : boundO.apply(randomSecond.getLeft());
 
             ProgressJenaIterator firstTP = getProgressJenaIterator(ss, pp, oo);
@@ -305,7 +306,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindSS(Integer spo) {
-        boundSS = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundSS = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
@@ -314,7 +315,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindPP(Integer spo) {
-        boundPP = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundPP = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
@@ -323,7 +324,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindOO(Integer spo) {
-        boundOO = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundOO = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
@@ -332,7 +333,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindS(Integer spo) {
-        boundS = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundS = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
@@ -341,7 +342,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindP(Integer spo) {
-        boundP = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundP = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
@@ -350,7 +351,7 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
      * @return this.
      */
     public TwoTriplePatterns bindO(Integer spo) {
-        boundO = (e) -> Objects.isNull(e) ? null : e.get(spo);
+        boundO = (e) -> Objects.isNull(e) ? backend.any() : e.get(spo);
         return this;
     }
 
