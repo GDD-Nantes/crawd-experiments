@@ -134,19 +134,19 @@ public class SACSPO {
             NodeId role0 = backend.getId("<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>", SPOC.OBJECT);
 
             //iterate over the all s in Role0
-            BackendIterator<NodeId,?> s_isa_role0 = backend.search(backend.any(), is_a, role0);
-            HashMap<NodeId,Double> frequencySubject = new HashMap<>();
-            while(s_isa_role0.hasNext()){
+            BackendIterator<NodeId, ?> s_isa_role0 = backend.search(backend.any(), is_a, role0);
+            HashMap<NodeId, Double> frequencySubject = new HashMap<>();
+            while (s_isa_role0.hasNext()) {
                 s_isa_role0.next();
                 NodeId sId = s_isa_role0.getId(SPOC.SUBJECT);
                 frequencySubject.get(sId);
-                BackendIterator<NodeId,?> s_p_o = backend.search(sId, backend.any(), backend.any());
-                while (s_p_o.hasNext()){
+                BackendIterator<NodeId, ?> s_p_o = backend.search(sId, backend.any(), backend.any());
+                while (s_p_o.hasNext()) {
                     s_p_o.next();
-                    if(!frequencySubject.containsKey(sId)){
-                        frequencySubject.put(sId,0.0);
+                    if (!frequencySubject.containsKey(sId)) {
+                        frequencySubject.put(sId, 0.0);
                     }
-                    frequencySubject.put(sId,frequencySubject.get(sId)+1);
+                    frequencySubject.put(sId, frequencySubject.get(sId) + 1);
                 }
 
             }
@@ -157,15 +157,17 @@ public class SACSPO {
             int i = 1;
             double sum_p = 0;
             double sum_total = 0;
-            while (i < samplesize){
+            while (i < samplesize) {
                 //run the full query {?s a class ; ?p ?o .}
-                ProgressJenaIterator s_isa_Role0 = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a,role0)).iterator;
+                ProgressJenaIterator s_isa_Role0 = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), is_a, role0)).iterator;
                 Pair<Tuple<NodeId>, Double> s_isa_Role0Record = s_isa_Role0.getRandomSPOWithProbability();
 
                 NodeId sId = s_isa_Role0Record.getLeft().get(SPOC.SUBJECT);
 
                 ProgressJenaIterator Spo = (ProgressJenaIterator) ((LazyIterator) backend.search(sId, backend.any(), backend.any())).iterator;
                 Pair<Tuple<NodeId>, Double> spoRecord = Spo.getRandomSPOWithProbability();
+            }
+        }
 
     }
 }

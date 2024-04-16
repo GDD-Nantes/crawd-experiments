@@ -21,7 +21,7 @@ else:
 
 estimators = config.get("estimators")
 if estimators is None:
-    estimators = ["crwd","chao_lee_N_j","horvitz_thompson","smoothed_jackknife","ndv","method_of_moments_v3","chao_lee"]
+    estimators = ["horvitz_thompson","smoothed_jackknife","ndv","chao_lee","chao_lee_N_j","crawd"]
 else:
     estimators = estimators.strip().split(",")
 

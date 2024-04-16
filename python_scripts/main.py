@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
+logging.basicConfig(level=logging.INFO)# Set logging level to INFO
 
 # Define a logger
 logger = logging.getLogger(__name__)
@@ -42,8 +42,10 @@ def read_csv_data(file_path, dictionary):
         for row in reader:
             # Check if the row has two values
             if len(row) == 3:
+                #logger.info(f"Row: {row}")
                 # Unpack the values
                 value, cd,chao = row
+                #logger.info(f"Value: {value}, cd: {cd}, chao: {chao}")
                 value_id = dictionary.setdefault(value, len(dictionary))
                 try:
                     cd = float(cd)
@@ -100,7 +102,7 @@ ESTIMATORS = {
         'horvitz_thompson': horvitz_thompson,
         'smoothed_jackknife': smoothed_jackknife,
         'method_of_moments_v3': method_of_moments_v3,
-        'crwd': None,
+        'crawd': None,
         'chao_lee_N_j': None,
         'chao_lee':chao_lee
     }
@@ -120,19 +122,21 @@ def read_gt_file(file_path):
 @click.option("--estimator",type=click.STRING)
 @click.option("--dataset",type=click.STRING)
 def run_estimators(input_file, ground_truth, compared_results, compared_errors, estimator, dataset,N = None):
+
     start = 0
-    stop = 0.1
+    stop = 0.1# wdbench 0.01, watdiv 0.1, largerdf_dbpedia 0.1
     step_small = 0.0005
     step_large = 0.0005
     sample_sizes_small_step = [round(start + step_small * i, 4) for i in range(int(0.05 / step_small) + 1)]
     sample_sizes_large_step = [round(0.05 + step_large * i, 4) for i in range(int((stop - 0.05) / step_large) + 1)]
     sample_sizes = sample_sizes_small_step + sample_sizes_large_step[1:]
-    #logger.info(f"Sample sizes: {sample_sizes}")
     # Read the input file
     dictionary = {}
     sample_table = read_csv_data(input_file, dictionary)
     # Read the ground truth
+
     gt = read_gt_file(ground_truth)
+
     # Get the dataset size
     if N is not None:
         N = N
@@ -141,6 +145,7 @@ def run_estimators(input_file, ground_truth, compared_results, compared_errors, 
             N = DATASET_SIZE['watdiv']
         elif (dataset == 'wdbench'):
             N = DATASET_SIZE['wdbench']
+            sample_sizes = [i / 10000 for i in range(0, 101)]
         elif (dataset == 'largerdf_dbpedia'):
             N = DATASET_SIZE['largerdf_dbpedia']
         else:
@@ -154,9 +159,9 @@ def run_estimators(input_file, ground_truth, compared_results, compared_errors, 
     all_results = {}
     all_relative_errors = {}
     for sample_size in tqdm(sample_sizes):
-        if estimator in ["ndv", "horvitz_thompson", "smoothed_jackknife", "method_of_moments_v3", "chao_lee"]:
+        if estimator in ["ndv", "horvitz_thompson", "smoothed_jackknife", "chao_lee"]:
             results, relative_errors = run_estimator(estimator_func, sample_table, int(sample_size * N), N, gt)
-        elif estimator == "crwd":
+        elif estimator == "crawd":
             results = sample_table[int(sample_size * N),1]
             relative_errors = calc_relative_error(gt, results)
         elif estimator == "chao_lee_N_j":
@@ -218,29 +223,36 @@ def merge_data(input_files,output_data_file,dataset, ground_truth,query):
 @click.argument("output-plot-file", type=click.Path(exists=False, file_okay=True, dir_okay=False))
 def plot_data(input_data_file, output_plot_file):
     df = pd.read_csv(input_data_file)
-    # Dictionary mapping estimator to color
     estimator_colors = {
         'ndv': 'black',
         'horvitz_thompson': 'red',
         'smoothed_jackknife': 'green',
-        'method_of_moments_v3': 'orange',
-        'crwd': 'blue',
-        'chao_lee_N_j': 'lightblue',
-        'chao_lee': 'purple'
+        'chao_lee': 'pink',
+        'crawd': 'blue',
+        'chao_lee_N_j': 'orange'
     }
     # Format x-axis ticks as percentages
     def format_percent_x(x, pos):
-        return '{:.0%}'.format(x)
+        return '{:.1%}'.format(x) # fix .1 if wdbench
     # Format y-axis ticks as percentages
     def format_percent_y(y, pos):
         return str(int(y)) + '%'
     plt.clf()
     plt.figure(figsize=(10, 8))
+
     sns.set_style("whitegrid", {'grid.linestyle': '--', 'grid.linewidth': 0.1})
-    p=sns.lineplot(data=df,x='sample_size', y='relative_error', hue='estimator',estimator='mean',err_style="band",errorbar="sd", palette=estimator_colors)
+    p=sns.lineplot(data=df,x='sample_size', y='relative_error', hue='estimator',estimator='mean',err_style="band",errorbar="sd",palette=estimator_colors, linewidth=1, alpha=0.7,markers=False, markersize=4, dashes=False, style='estimator')
     p.set(xlabel='sample size', ylabel='relative error')
-    plt.xlim(0, 0.1)
+    for line in p.lines:
+        line.set_linewidth(2)
+    plt.xlim(0, 0.01)#fix if wdbench
     plt.ylim(-100, 100)
+    # Add a note just under the legend
+    note_text = '13M samples'
+    plt.figtext(0.9, 0.05, note_text, ha='right')
+    note_text_1 = 'exact value = 304,967,140'
+    plt.figtext(0.9, 0.5, note_text_1, ha='right')
+
 
     plt.gca().xaxis.set_major_formatter(mtick.FuncFormatter(format_percent_x))
     plt.gca().yaxis.set_major_formatter(mtick.FuncFormatter(format_percent_y))
@@ -249,5 +261,20 @@ def plot_data(input_data_file, output_plot_file):
 
 
 
+
 if __name__ == "__main__":
     cli()
+# TODO: running with wdbench, so did change sample size.!! becareful
+
+
+
+
+
+
+
+
+
+
+
+
+
