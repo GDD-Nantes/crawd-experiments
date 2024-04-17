@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 @Disabled
 class TwoTriplePatternsTest {
 
-    public static String WATDIV_MOST_FREQUENT_CLASS = "<http://db.uwaterloo.ca/~galuc/wsdbm/ProductCategory5>";
+    public static String WATDIV_MOST_FREQUENT_CLASS = "<http://db.uwaterloo.ca/~galuc/wsdbm/Role0>";
     //public static Double WATDIV_MOST_FREQUENT_CLASS_DISTINCT_O = 402344.;
     @Test
     public void sac_spo_gb_c_CD_o_watdiv() {
-        JenaBackend backend = new JenaBackend("/GDD/WATDIV");
+        JenaBackend backend = new JenaBackend("/WATDIV");
 
         NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
         NodeId c = backend.getId(WATDIV_MOST_FREQUENT_CLASS, SPOC.OBJECT);
@@ -36,7 +36,7 @@ class TwoTriplePatternsTest {
                 //.setEstimator(new ChaoLee())
                 .setStep(10)
                 .setUniform(false)
-                .setSeed(5)
+                .setSeed(1)
                 //.setExactCount())
                 .setEstimatedCount(100));
 
@@ -56,7 +56,7 @@ class TwoTriplePatternsTest {
 
     @Test
     public void sac_spo_gb_c_CD_o_dbpedia() {
-        JenaBackend backend = new JenaBackend("/GDD/RSFB/engines/FedUP-experiments/backup/summaries/largerdfbench/fedup-id");
+        JenaBackend backend = new JenaBackend("/LargeRDFBench");
 
         NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
         NodeId g = backend.getId("<http://example.com/dbpedia>", SPOC.GRAPH);
@@ -77,7 +77,7 @@ class TwoTriplePatternsTest {
                 .setEstimatedCount(100))
                 ;
 
-        while(twoTPs.getNbSteps() < (400)) {
+        while(twoTPs.getNbSteps() < (twoTPs.getBigN()/1000)) {
           Map<Set<NodeId>, Double> group2estimate = twoTPs.sample();
             StringBuilder formatted = new StringBuilder();
             formatted.append(twoTPs.getNbSteps() + ": ");
@@ -90,7 +90,7 @@ class TwoTriplePatternsTest {
 
     @Test
     public void sac_spo_gb_c_CD_o_wdbench() {
-        JenaBackend backend = new JenaBackend("/GDD/wdbench/WDBench");
+        JenaBackend backend = new JenaBackend("/WDBench");
 
         NodeId a = backend.getId("<http://www.wikidata.org/prop/direct/P131>", SPOC.PREDICATE);
         NodeId c = backend.getId("<http://www.wikidata.org/entity/Q1085>", SPOC.OBJECT);
@@ -100,47 +100,15 @@ class TwoTriplePatternsTest {
                 .bindP(a)
                 .bindO(c)
                 .groupBy(SPOC.OBJECT)
-                .setEstimator(new CRWD())
-                //.setEstimator(new ChaoLee())
-                .setStep(10)
-                .setUniform(false)
-                .setSeed(5)
-                //.setExactCount())
-                .setEstimatedCount(100));
-
-        while(twoTPs.getNbSteps() < (twoTPs.getBigN() / 1000)) {
-            Map<Set<NodeId>, Double> group2estimate = twoTPs.sample();
-            StringBuilder formatted = new StringBuilder();
-            formatted.append(twoTPs.getNbSteps() + ": ");
-            for (Set<NodeId> group : group2estimate.keySet()) {
-                formatted.append(group.stream().map(backend::getValue).collect(Collectors.toList())).append(" => ").append(group2estimate.get(group)).append(" ; ");
-            }
-            System.out.println(formatted);
-        }
-    }
-
-    @Test
-    public void sac_spo_gb_c_CD_o_dbpedia_chao() {
-        JenaBackend backend = new JenaBackend("/GDD/largerdfbench/fedup-id");
-
-        NodeId is_a = backend.getId("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", SPOC.PREDICATE);
-        NodeId g = backend.getId("<http://example.com/dbpedia>", SPOC.GRAPH);
-
-        TwoTriplePatterns twoTPs = ((TwoTriplePatterns) new TwoTriplePatterns(backend, Set.of(TwoTriplePatterns.OO))
-                .bindSS(SPOC.SUBJECT)
-                .bindS(SPOC.SUBJECT)
-                .bindP(is_a)
-                .groupBy(SPOC.OBJECT)
                 //.setEstimator(new CRWD())
                 .setEstimator(new ChaoLee())
-                .setGraph(g)
-                .setStep(10000)
+                .setStep(100)
                 .setUniform(false)
                 .setSeed(5)
                 //.setExactCount())
-                .setEstimatedCount(100));
+                .setEstimatedCount(1000));
 
-        while(twoTPs.getNbSteps() < 10_546_000) {
+        while(twoTPs.getNbSteps() < (twoTPs.getBigN() / 10000)) {
             Map<Set<NodeId>, Double> group2estimate = twoTPs.sample();
             StringBuilder formatted = new StringBuilder();
             formatted.append(twoTPs.getNbSteps() + ": ");
@@ -150,11 +118,12 @@ class TwoTriplePatternsTest {
             System.out.println(formatted);
         }
     }
+
 
     @Test
     public void sac_spo_gb_c_CD_s () {
         //Watdiv10M watdiv10M = new Watdiv10M(Optional.empty());
-        JenaBackend backend = new JenaBackend("/GDD/WATDIV");
+        JenaBackend backend = new JenaBackend("/WATDIV");
 
         TwoTriplePatterns twoTPs = ((TwoTriplePatterns) new TwoTriplePatterns(backend, Set.of(SPOC.SUBJECT))
                 .bindSS(SPOC.SUBJECT)

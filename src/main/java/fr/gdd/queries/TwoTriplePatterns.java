@@ -26,6 +26,8 @@ public class TwoTriplePatterns extends ConfigCountDistinctQuery {
     static final Integer PP = 5;
     static final Integer OO = 6;
 
+    static Integer countsuccess = 0;
+
     Function<Tuple<NodeId>, NodeId> boundS;
     Function<Tuple<NodeId>, NodeId> boundP;
     Function<Tuple<NodeId>, NodeId> boundO;

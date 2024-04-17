@@ -25,7 +25,7 @@ def plot_data(input_data_files, note_texts_1,note_texts_2, output_plot_file):
     sns.set_style("whitegrid", {'grid.linestyle': '--', 'grid.linewidth': 0.1})
     # Create subplots
     #plt.figure(figsize=(6.82,3.13))
-    fig, axes = plt.subplots(nrows=1, ncols=len(input_data_files), figsize=(6.7*3, 2.8*3 ), gridspec_kw={'wspace': 0.1})
+    fig, axes = plt.subplots(nrows=1, ncols=len(input_data_files), figsize=(6.7*3, 2.3*3 ), gridspec_kw={'wspace': 0.1})
 
 
     for i, input_data_file in enumerate(input_data_files):
@@ -45,12 +45,13 @@ def plot_data(input_data_files, note_texts_1,note_texts_2, output_plot_file):
             ax.xaxis.set_major_formatter(mtick.FuncFormatter(format_percent_x))
             ax.tick_params(axis='x', labelsize=fontsize-2,rotation=45)
             ax.text(0.65, 0.5, note_texts_2[i], ha='right', va='bottom', transform=ax.transAxes, fontsize=fontsize)
+            ax.text(0.1, 0.95, "OBJECT", ha='center', va='bottom', transform=ax.transAxes, fontsize=fontsize-2, weight='bold')
 
             ax.text(0.85, 0.95, "WatDiv10M", ha='center', va='bottom', transform=ax.transAxes, fontsize=fontsize-2, weight='bold')
             ax.yaxis.set_major_formatter(mtick.FuncFormatter(format_percent_y))
             ax.tick_params(axis='y', labelsize=fontsize)
             ax.set_ylabel('relative error', fontsize=fontsize)
-            ax.set_xlabel('sample size', fontsize=fontsize)
+            ax.set_xlabel('sample size', fontsize=fontsize).set_visible(False)
             p.legend().set_visible(False)
         elif i ==1:
             ax.text(1, 0, note_texts_1[i], ha='right', va='bottom', transform=ax.transAxes, fontsize=fontsize)
@@ -62,7 +63,7 @@ def plot_data(input_data_files, note_texts_1,note_texts_2, output_plot_file):
             p.legend(loc='upper left', fontsize=16)
             ax.tick_params(labelleft = False)
             ax.set_ylabel('relative error', fontsize=fontsize).set_visible(False)
-            ax.set_xlabel('sample size', fontsize=fontsize)
+            ax.set_xlabel('sample size', fontsize=fontsize).set_visible(False)
 
         elif i == 2:
             ax.text(1, 0.1, note_texts_1[i], ha='right', va='bottom', transform=ax.transAxes, fontsize=fontsize)
@@ -74,7 +75,7 @@ def plot_data(input_data_files, note_texts_1,note_texts_2, output_plot_file):
             p.legend().set_visible(False)
             ax.tick_params(labelleft = False)
             ax.set_ylabel('relative error', fontsize=fontsize).set_visible(False)
-            ax.set_xlabel('sample size', fontsize=fontsize)
+            ax.set_xlabel('sample size', fontsize=fontsize).set_visible(False)
 
     #plt.tight_layout()
     plt.subplots_adjust(left=0.07, right=0.98, top=0.97, bottom=0.13)
