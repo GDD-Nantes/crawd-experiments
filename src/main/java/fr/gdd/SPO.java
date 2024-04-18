@@ -40,7 +40,7 @@ public class SPO {
 
                 LazyIterator s = (LazyIterator) backend.search(sub, backend.any(), backend.any());
                 ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
-                double count = sR.count();
+                double count = sR.cardinality();
                 sum_s += (1/ count);
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((10_916_457)/i) * sum_s ;
@@ -174,7 +174,7 @@ public class SPO {
                 String object = backend.getValue(oId);
                 LazyIterator o = (LazyIterator) backend.search(backend.any(), backend.any(),oId);
                 ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
-                double count =  oR.count();
+                double count =  oR.cardinality();
                 sum_o += (1/ count);
                 sum_o_for_N += (1 / sporwR.getRight());
                 double estimateO = ((10_916_457)/i) * sum_o;
@@ -207,7 +207,7 @@ public class SPO {
                 }else{
                 LazyIterator o = (LazyIterator) backend.search(backend.any(), backend.any(),oId,graph);
                 ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
-                count =  oR.count();
+                count =  oR.cardinality();
                 objectCount.put(oId,count);
                 }
                 sum_o += (1/ count);
@@ -242,7 +242,7 @@ public class SPO {
                 }else{
                     LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
                     ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
-                    count =  pR.count();
+                    count =  pR.cardinality();
                     predicateCount.put(pId,count);
                 }
                 sum_p += (1/ count);
@@ -276,7 +276,7 @@ public class SPO {
 
                 LazyIterator s = (LazyIterator) backend.search(sub, backend.any(), backend.any());
                 ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
-                double count = sR.count();
+                double count = sR.cardinality();
                 sum_s += (1/ count);
                 sum_p_for_N += (1/ sporwR.getRight());
                 double estimateS = ((1_257_169_959)/i) * sum_s ;
@@ -288,37 +288,6 @@ public class SPO {
                 i++;
             }
 
-        }
-    }
-    public static void fixed_predicate_Test(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Object CRWD Chao_Lee");
-            JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
-            ProgressJenaIterator.NB_WALKS = 1;
-            NodeId pred = backend.getId("<http://db.uwaterloo.ca/~galuc/wsdbm/friendOf>", SPOC.PREDICATE);
-            ProgressJenaIterator sPo = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), pred, backend.any())).iterator;
-            int i = 1;
-            double sum_o = 0.;
-            double sum_p_for_N = 0.;
-            ChaoLee chaoLee = new ChaoLee();
-            while(i<(samplesize+1)) {
-
-                Pair<Tuple<NodeId>, Double> sporwR = sPo.getUniformRandomSPOWithProbability();
-                Tuple<NodeId> sporw = sporwR.getLeft();
-                NodeId obj = sporw.get(SPOC.OBJECT);
-                String object = backend.getValue(obj);
-
-                LazyIterator o = (LazyIterator) backend.search(backend.any(), pred, obj);
-                ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
-                double count = oR.cardinality();
-                sum_o += (1 / count);
-                sum_p_for_N += (1 / sporwR.getRight());
-                double estimateO = ((sum_p_for_N / i) / i) * sum_o;
-
-                chaoLee.fixN(sum_p_for_N / i).add(new ChaoLee.ChaoLeeSample(Set.of(obj), sporwR.getRight(), count));
-                writer.printf("%s %f %f%n", object, estimateO, chaoLee.getEstimate());
-                i++;
-            }
         }
     }
 }

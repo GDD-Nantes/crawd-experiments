@@ -19,8 +19,11 @@ considerably improving existing methods.
 
 2. Load the datasets into TDB2 Apache Jena:
 You can find the instructions on how to load the datasets into TDB2 [here](https://jena.apache.org/documentation/tdb2/tdb2_cmds.html).
-3. Install Sage-Jena:
-You can find the instructions on how to install Sage-Jena [here](https://github.com/Chat-Wane/sage-jena).
+3. All ground truth files of 3 datasets for groupby queries are located in the `res` folder.
+4. For getting the sample and running the CRAWD algorithm in SPO queries, you can run the SPOTest.java file in the `src` folder.
+5. For getting the sample and running the CRAWD algorithm in groupby queries, you can run the TwoTriplePatternsTest.java file in the `src` folder.
+6. For evaluating CRAWD and other algorithms, you can check out the snakemake file `evaluate.smk`.
+
 
 
 
