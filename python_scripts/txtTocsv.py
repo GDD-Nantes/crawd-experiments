@@ -35,9 +35,9 @@ def process_file(file_path):
             output_file.write(value + '\n')
 
 
-watdiv_path = '/GDD/Thi/count-distinct-sampling/watdiv/GT'
-wdbench_path = '/GDD/Thi/count-distinct-sampling/wdbench/GT'
-dbpedia_path = '/GDD/Thi/count-distinct-sampling/largerdf_dbpedia/GT'
+watdiv_path = '/count-distinct-sampling/watdiv/GT'
+wdbench_path = '/count-distinct-sampling/wdbench/GT'
+dbpedia_path = '/count-distinct-sampling/largerdf_dbpedia/GT'
 # Process all files in the directory
 for path in [watdiv_path,wdbench_path, dbpedia_path]:
     for filename in os.listdir(path):
