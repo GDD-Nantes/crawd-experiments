@@ -41,7 +41,7 @@ public class SPOTest {
     @Disabled
     @Test
     public void SPO_dbpedia() throws IOException {
-        String dbpediaPath = "/GDD/Thi/count-distinct-sampling/largerdf_dbpedia/sample/";
+        String dbpediaPath = "/count-distinct-sampling/largerdf_dbpedia/sample/";
         int iterations = 5;
         int dataSize = 4_500_000;
 
