@@ -1,4 +1,4 @@
-# CRAWD: Sampling-Based Estimation ofCount-Distinct SPARQL Queries
+# CRAWD: Sampling-Based Estimation of Count-Distinct SPARQL Queries
 This repository contains the code and data for the paper "CRAWD: Sampling-Based Estimation of Count-Distinct SPARQL Queries" 
 
 ## Abstract
@@ -21,7 +21,6 @@ considerably improving existing methods.
 You can find the instructions on how to load the datasets into TDB2 [here](https://jena.apache.org/documentation/tdb2/tdb2_cmds.html).
 3. Install Sage-Jena:
 You can find the instructions on how to install Sage-Jena [here](https://github.com/Chat-Wane/sage-jena).
-4. 
 
 
 
