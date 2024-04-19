@@ -43,7 +43,7 @@ public class SPO {
                 double count = sR.cardinality();
                 sum_s += (1/ count);
                 sum_p_for_N += (1/ sporwR.getRight());
-                double estimateS = ((10_916_457)/i) * sum_s ;
+                double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
 
                 chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sub), sporwR.getRight(), count));
 
@@ -67,25 +67,18 @@ public class SPO {
             double sum_s = 0.;
             double sum_p_for_N = 0.;
             ChaoLee chaoLee = new ChaoLee();
-            double count = 0;
-            HashMap<NodeId,Double> subjectCount = new HashMap<>();
             while (i<(samplesize+1)) {
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 Tuple<NodeId> sporw = sporwR.getLeft();
                 NodeId sub = sporw.get(SPOC.SUBJECT);
                 String subject = backend.getValue(sub);
-                if (subjectCount.containsKey(sub)) {
-                    count = subjectCount.get(sub);
-                }else{
 
                 LazyIterator s = (LazyIterator) backend.search(sub, backend.any(), backend.any(),graph);
                 ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
-                count = sR.count();
-                subjectCount.put(sub,count);
-                }
+                double count = sR.cardinality();
                 sum_s += (1/ count);
                 sum_p_for_N += (1/ sporwR.getRight());
-                double estimateS = ((42_849_609)/i) * sum_s ;
+                double estimateS = ((sum_p_for_N/i)/i) * sum_s ;
                 chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sporw.get(1)),sporwR.getRight(), count));
 
                 writer.printf("%s %f %f%n", subject,estimateS, chaoLee.getEstimate());
@@ -104,16 +97,23 @@ public class SPO {
             double sum_p = 0.;
             double sum_p_for_N = 0.;
             ChaoLee chaoLee = new ChaoLee();
+            double count = 0;
+            HashMap<NodeId,Double> predicateCount = new HashMap<>();
             while(i<(samplesize+1)){
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 NodeId pId = sporwR.getLeft().get(1);
                 String predicate = backend.getValue(pId);
-                LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
-                ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
-                double count =  pR.count();
+                if (predicateCount.containsKey(pId)) {
+                    count = predicateCount.get(pId);
+                }else{
+                    LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
+                    ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
+                    count =  pR.count();
+                    predicateCount.put(pId,count);
+                }
                 sum_p += (1/ count);
                 sum_p_for_N += (1 / sporwR.getRight());
-                double estimateP = ((10_916_457)/i) * sum_p;
+                double estimateP = ((sum_p_for_N/i)/i) * sum_p;
                 chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(pId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", predicate, estimateP, chaoLee.getEstimate());
                 i++;
@@ -150,7 +150,7 @@ public class SPO {
                 }
                 sum_p += (1/ count);
                 sum_p_for_N += (1 / sporwR.getRight());
-                double estimateP = ((42_849_609)/i) * sum_p;
+                double estimateP = ((sum_p_for_N/i)/i) * sum_p;
                 chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(pId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", predicate, estimateP, chaoLee.getEstimate());
                 i++;
@@ -177,7 +177,7 @@ public class SPO {
                 double count =  oR.cardinality();
                 sum_o += (1/ count);
                 sum_o_for_N += (1 / sporwR.getRight());
-                double estimateO = ((10_916_457)/i) * sum_o;
+                double estimateO = ((sum_o_for_N/i)/i) * sum_o;
                 chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(oId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", object, estimateO, chaoLee.getEstimate());
                 i++;
@@ -196,23 +196,18 @@ public class SPO {
             double sum_o = 0.;
             double sum_o_for_N = 0.;
             ChaoLee chaoLee = new ChaoLee();
-            double count = 0;
-            HashMap<NodeId,Double> objectCount = new HashMap<>();
+
             while(i<(samplesize+1)){
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 NodeId oId = sporwR.getLeft().get(2);
                 String object = backend.getValue(oId);
-                if (objectCount.containsKey(oId)) {
-                    count = objectCount.get(oId);
-                }else{
+
                 LazyIterator o = (LazyIterator) backend.search(backend.any(), backend.any(),oId,graph);
                 ProgressJenaIterator oR = (ProgressJenaIterator) o.iterator;
-                count =  oR.cardinality();
-                objectCount.put(oId,count);
-                }
+                double count =  oR.cardinality();
                 sum_o += (1/ count);
                 sum_o_for_N += (1 / sporwR.getRight());
-                double estimateO = ((42_849_609)/i) * sum_o;
+                double estimateO = ((sum_o_for_N/i)/i) * sum_o;
                 chaoLee.fixN(sum_o_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(oId),sporwR.getRight(), count));
                 writer.printf("%s %f %f%n", object, estimateO, chaoLee.getEstimate());
                 i++;
@@ -220,74 +215,4 @@ public class SPO {
         }
     }
 
-    public static void CDp_wdbench(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Predicate CRWD Chao_Lee");
-            JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
-            ProgressJenaIterator.NB_WALKS = 1;
-            ProgressJenaIterator spo = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), backend.any(), backend.any())).iterator;
-
-            int i = 1;
-            double sum_p = 0.;
-            double sum_p_for_N = 0.;
-            ChaoLee chaoLee = new ChaoLee();
-            HashMap<NodeId,Double> predicateCount = new HashMap<>();
-            double count = 0;
-            while(i<(samplesize+1)){
-                Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
-                NodeId pId = sporwR.getLeft().get(1);
-                String predicate = backend.getValue(pId);
-                if (predicateCount.containsKey(pId)) {
-                    count = predicateCount.get(pId);
-                }else{
-                    LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
-                    ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
-                    count =  pR.cardinality();
-                    predicateCount.put(pId,count);
-                }
-                sum_p += (1/ count);
-                sum_p_for_N += (1 / sporwR.getRight());
-                double estimateP = (1_257_169_959/i) * sum_p;
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(pId),sporwR.getRight(), count));
-                writer.printf("%s %f %f%n", predicate, estimateP, chaoLee.getEstimate());
-                i++;
-            }
-
-        }
-    }
-    public static void CDs_wdbench(String PathToTDB2Dataset, String outputFile, Integer samplesize) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.println("Subject CRWD Chao_Lee");
-            JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
-            ProgressJenaIterator.NB_WALKS = 1;
-            ProgressJenaIterator spo = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), backend.any(), backend.any())).iterator;
-
-
-            int i = 1;
-            double sum_s = 0.;
-            double sum_p_for_N = 0.;
-            ChaoLee chaoLee = new ChaoLee();
-            while(i<(samplesize+1)){
-
-                Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
-                Tuple<NodeId> sporw = sporwR.getLeft();
-                NodeId sub = sporw.get(SPOC.SUBJECT);
-                String subject = backend.getValue(sub);
-
-                LazyIterator s = (LazyIterator) backend.search(sub, backend.any(), backend.any());
-                ProgressJenaIterator sR = (ProgressJenaIterator) s.iterator;
-                double count = sR.cardinality();
-                sum_s += (1/ count);
-                sum_p_for_N += (1/ sporwR.getRight());
-                double estimateS = ((1_257_169_959)/i) * sum_s ;
-
-                chaoLee.fixN(sum_p_for_N/i).add(new ChaoLee.ChaoLeeSample(Set.of(sub), sporwR.getRight(), count));
-
-
-                writer.printf("%s %f %f%n", subject,estimateS, chaoLee.getEstimate());
-                i++;
-            }
-
-        }
-    }
 }
