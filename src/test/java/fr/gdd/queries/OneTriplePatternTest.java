@@ -2,7 +2,6 @@ package fr.gdd.queries;
 
 import fr.gdd.estimators.CRWD;
 import fr.gdd.estimators.ChaoLee;
-import fr.gdd.sage.databases.persistent.Watdiv10M;
 import fr.gdd.sage.interfaces.SPOC;
 import fr.gdd.sage.jena.JenaBackend;
 import org.junit.jupiter.api.Disabled;
@@ -20,8 +19,7 @@ class OneTriplePatternTest {
 
     @Test
     public void distinct_s() {
-        Watdiv10M watdiv10M = new Watdiv10M(Optional.empty());
-        JenaBackend backend = new JenaBackend(watdiv10M.dbPath_asStr);
+        JenaBackend backend = new JenaBackend("/GDD/WATDIV");
 
         OneTriplePattern spoExperiment = (OneTriplePattern) new OneTriplePattern(backend, Set.of(SPOC.PREDICATE))
                 .setEstimator(new CRWD())

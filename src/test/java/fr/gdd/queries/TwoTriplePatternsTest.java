@@ -2,7 +2,6 @@ package fr.gdd.queries;
 
 import fr.gdd.estimators.CRWD;
 import fr.gdd.estimators.ChaoLee;
-import fr.gdd.sage.databases.persistent.Watdiv10M;
 import fr.gdd.sage.interfaces.SPOC;
 import fr.gdd.sage.jena.JenaBackend;
 import org.apache.jena.tdb2.store.NodeId;

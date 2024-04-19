@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Random;
 
 public class SPOTest {
-    public static String watdiv_path = "/WATDIV";
+    public static String watdiv_path = "/GDD/WATDIV";
     public static String dbpedia_path = "/LargeRDFBench";
     public static String wdbench_path = "/WDBench";
 
@@ -18,7 +18,7 @@ public class SPOTest {
     @Test
     public void SPO_watdiv() throws IOException {
 
-        String watdivPath = "/count-distinct-sampling/watdiv/sample/";
+        String watdivPath = "/GDD/Thi/count-distinct-sampling/watdiv/test/";
         int iterations = 5;
         int dataSize = 1_100_000;
 
