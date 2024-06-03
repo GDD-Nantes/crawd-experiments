@@ -11,15 +11,8 @@ considerably improving existing methods.
 
 ## User Guide
 ### Requirements
-- For SOTA algorithms, 2 main libraries that you need to install are:
-1. Pydistinct: 
-``` pip install pydistinct```
-[https://github.com/chanedwin/pydistinct](https://github.com/chanedwin/pydistinct)
-2. Learned NDV estimator
-``` pip install estndv```
- [https://github.com/wurenzhi/learned_ndv_estimator](https://github.com/wurenzhi/learned_ndv_estimator)
+You can install all the required libraries by running the following command:
 
-- Overall, you can install all the required libraries by running the following command:
 ``` pip install -r requirements.txt```
 
 ### Installation
