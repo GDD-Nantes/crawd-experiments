@@ -104,13 +104,20 @@ public class SPO {
             double sum_p = 0.;
             double sum_p_for_N = 0.;
             ChaoLee chaoLee = new ChaoLee();
+            HashMap<NodeId,Double> predicateCount = new HashMap<>();
+            double count = 0;
             while(i<(samplesize+1)){
                 Pair<Tuple<NodeId>, Double> sporwR = spo.getUniformRandomSPOWithProbability();
                 NodeId pId = sporwR.getLeft().get(1);
                 String predicate = backend.getValue(pId);
+                if (predicateCount.containsKey(pId)) {
+                    count = predicateCount.get(pId);
+                }else{
                 LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
                 ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
-                double count =  pR.count();
+                count =  pR.count();
+                predicateCount.put(pId,count);
+                }
                 sum_p += (1/ count);
                 sum_p_for_N += (1 / sporwR.getRight());
                 double estimateP = ((10_916_457)/i) * sum_p;
@@ -127,7 +134,7 @@ public class SPO {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
             writer.println("Predicate CRWD Chao_Lee");
             JenaBackend backend = new JenaBackend(PathToTDB2Dataset);
-            ProgressJenaIterator.NB_WALKS = 10;
+            ProgressJenaIterator.NB_WALKS = 1;
             NodeId graph = backend.getId("<http://example.com/dbpedia>", SPOC.GRAPH);
             ProgressJenaIterator spo = (ProgressJenaIterator) ((LazyIterator) backend.search(backend.any(), backend.any(), backend.any(),graph)).iterator;
             int i = 1;
@@ -242,7 +249,7 @@ public class SPO {
                 }else{
                     LazyIterator p = (LazyIterator) backend.search(backend.any(),pId, backend.any());
                     ProgressJenaIterator pR = (ProgressJenaIterator) p.iterator;
-                    count =  pR.cardinality();
+                    count =  pR.count();
                     predicateCount.put(pId,count);
                 }
                 sum_p += (1/ count);

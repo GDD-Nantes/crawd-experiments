@@ -10,6 +10,18 @@ CRAWD significantly improves sampling efficiency and allows feasible execution o
 considerably improving existing methods.
 
 ## User Guide
+### Requirements
+- For SOTA algorithms, 2 main libraries that you need to install are:
+1. Pydistinct: 
+``` pip install pydistinct```
+[https://github.com/chanedwin/pydistinct](https://github.com/chanedwin/pydistinct)
+2. Learned NDV estimator
+``` pip install estndv```
+ [https://github.com/wurenzhi/learned_ndv_estimator](https://github.com/wurenzhi/learned_ndv_estimator)
+
+- Overall, you can install all the required libraries by running the following command:
+``` pip install -r requirements.txt```
+
 ### Installation
 
 1. Download the datasets from the following links:
@@ -19,11 +31,14 @@ considerably improving existing methods.
 
 2. Load the datasets into TDB2 Apache Jena:
 You can find the instructions on how to load the datasets into TDB2 [here](https://jena.apache.org/documentation/tdb2/tdb2_cmds.html).
-3. All ground truth files of 3 datasets for groupby queries are located in the `res` folder.
-4. For getting the sample and running the CRAWD algorithm in SPO queries, you can run the SPOTest.java file in the `src` folder.
-5. For getting the sample and running the CRAWD algorithm in groupby queries, you can run the TwoTriplePatternsTest.java file in the `src` folder.
-6. For evaluating CRAWD and other algorithms, you can check out the snakemake file `evaluate.smk`.
+
+### Running the code
+
+1. For getting the sample and running the CRAWD algorithm in SPO queries, you can run the SPOTest.java file in the `src` folder.
+2. For getting the sample and running the CRAWD algorithm in groupby queries, you can run the TwoTriplePatternsTest.java file in the `src` folder.
+3. For evaluating CRAWD and other algorithms, you can check out the snakemake file `evaluate.smk`.
 
 
-
+### Note:
+1. All ground truth files of 3 datasets for groupby queries are located in the `res` folder.
 

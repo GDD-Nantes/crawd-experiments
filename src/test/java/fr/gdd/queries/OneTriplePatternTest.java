@@ -1,5 +1,6 @@
 package fr.gdd.queries;
 
+import fr.gdd.SPO;
 import fr.gdd.estimators.CRWD;
 import fr.gdd.estimators.ChaoLee;
 import fr.gdd.sage.interfaces.SPOC;
@@ -18,20 +19,23 @@ class OneTriplePatternTest {
     public static Double WATDIV_DISTINCT_O = 1_005_832.;
 
     @Test
-    public void distinct_s() {
+    public void distinct_p() {
         JenaBackend backend = new JenaBackend("/GDD/WATDIV");
 
         OneTriplePattern spoExperiment = (OneTriplePattern) new OneTriplePattern(backend, Set.of(SPOC.PREDICATE))
                 .setEstimator(new CRWD())
-                .setStep(10)
-                .setUniform(false)
-                .setSeed(2)
-                .setEstimatedCount(1)
-                .fixN();
+                .setStep(1000)
+                .setUniform(true)
+                .setSeed(1)
+                .setExactCount();
+                //.setEstimatedCount(1000);
+                //.fixN();
 
-        while(spoExperiment.getNbSteps() < 10_000_000) {
+        while(spoExperiment.getNbSteps() < 1_100_000) {
             Double estimate = spoExperiment.sample().get(Set.of());
-            System.out.printf("%s %.2f %f%n", spoExperiment.getNbSteps(), estimate, getRelativeError(WATDIV_DISTINCT_P, estimate));
+            double relativeError = getRelativeErrorPercent(WATDIV_DISTINCT_P, estimate);
+            System.out.printf("%s %.2f %f%n", spoExperiment.getNbSteps(), estimate, relativeError);
+
         }
     }
 
@@ -41,7 +45,7 @@ class OneTriplePatternTest {
      * @return The relative error. Careful: it can be higher than 1.
      */
     public static Double getRelativeError(Double truth, Double actual) {
-        return Math.abs(truth-actual) / truth;
+        return (truth-actual) / truth;
     }
 
     public static Double getRelativeErrorPercent(Double truth, Double actual) {
