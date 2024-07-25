@@ -1,4 +1,4 @@
-# CRAWD vs Chao_lee  
+# CRAWD's performance evaluation compared to Chao_lee_Fµ and other state-of-the-art methods
 ## On single triple pattern queries( VoID queries)
 ### QB3: count distinct predicates in dataset
 ![spo_p](/plots_paper/CDp_exact_merged.png)
