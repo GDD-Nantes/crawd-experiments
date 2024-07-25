@@ -10,11 +10,18 @@ CRAWD significantly im-proves sampling efficiency and allows feasible execution 
 
 
 ## Repository Structure
-The repository is structured as follows:
+
+You can find detail for each subdirectory in their README. The repository is structured as follows:
 - count-distinct-watdiv: instruction, queries, results for the experiments on the WatDiv benchmark.
 - count-distinct-wdbench: instruction, queries, results for the experiments on the WDBench benchmark.
-- sage-jena: the implementation of the CRAWD algorithm.
+- sage-jena/rawer : the implementation of the CRAWD algorithm in blazegraph.
 - plots_paper: the plots used in the paper and more plots for the experiments.
+- cd_bad_queries: details of the queries that have problem on JOIN's order.
+- cd_motivating_example: results for the motivating example in the introduction of the paper.
+- frequencies_of_frequency: the code and data for the experiments on the frequencies of frequency of single triple patterns.
+
+
+
 ### Requirements
 You can install all the required Python libraries by running the following command:
 
