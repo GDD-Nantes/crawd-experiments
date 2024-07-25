@@ -14,3 +14,10 @@ subsequent count queries to that of the provided `--query` or
 
 To run the experiment, we use [snakemake](https://snakemake.github.io/):
 `snakemake -c1 just_do_it.dat`. The results are located in the [results directory](./results).
+
+Results are much better, even on the smallest 10k-scans budget:
+
+    - For `query_407`, the expected value is 66053832. 
+      CRAWD's estimate is 65254568 with a sublimit of 4 scans (1.2% mean relative error (vs 96% without force order)).
+    - For `query_637`, the expected value is 27994204.
+      CRAWD's estimate is 27814624 with a sublimit of 4 scans (0.64% mean relative error (vs 100% without force order)).
