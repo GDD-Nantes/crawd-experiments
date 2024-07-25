@@ -7,5 +7,5 @@
 snakemake -F -p -s ./count-distinct-wdbench/snakemake_files/crawd_config.smk -c1
 ```
 
-- The final results,aggregated analysis for each estimator are saved in `output` folder.
+- The final results,aggregated analysis for each estimator are saved in `results` folder.
 - The ground truth for each query is saved in `GT` folder.
