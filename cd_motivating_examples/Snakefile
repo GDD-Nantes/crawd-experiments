@@ -1,0 +1,83 @@
+import os
+import glob
+
+##########################################################################
+
+T = [60000]
+SL = [1, 10, 100]
+L = [10000, 100000, 1000000]
+FO = ["noforce", "force"]
+
+def get_nb_tps_in_file (wildcards):
+    with open(f"queries/{wildcards.query}", 'r') as file:
+        contents = file.read()
+    actual_sublimit = int(contents.count(" .")) * int(wildcards.sublimit)
+    return str(actual_sublimit)
+
+def should_i_force_order (wildcards):
+    if (wildcards.forceorder == "force"):
+        return "--force-order"
+    else :
+        return ""
+
+
+
+rule run_rawer_all:
+    input:
+        expand("results/{query}-{forceorder}-{timeout}ms-{sublimit}.dat",
+               query=[os.path.basename(f) for f in glob.glob("queries/*.sparql")],
+               timeout=T,
+               sublimit=SL,
+               forceorder=FO)
+    output:
+        "crawd.done"
+    shell:
+        "echo 'done' > crawd.done"
+
+rule run_rawer_single:
+    input:
+        "rawer-jar-with-dependencies.jar",
+        "wdbench-blaze.jnl",
+        "queries/{query}"
+    params:
+        actual_sublimit=get_nb_tps_in_file,
+        param_order=should_i_force_order
+    output:
+        "results/{query}-{forceorder}-{timeout}ms-{sublimit}.dat"
+    shell:
+        "java -jar rawer-jar-with-dependencies.jar "
+        "--database=wdbench-blaze.jnl "
+        "--file=queries/{wildcards.query} "
+        "--timeout={wildcards.timeout} "
+        "-sl={params.actual_sublimit} "
+        "{params.param_order} "
+        "--executions=5 "
+        "--seed=1 "
+        "--threads=1 "
+        "--report "
+        "&> results/{wildcards.query}-{wildcards.forceorder}-{wildcards.timeout}ms-{wildcards.sublimit}.dat "
+
+
+####################################################################
+
+rule run_blazegraph_all:
+    input:
+        expand("ground-truth/{query}.dat",
+               query=[os.path.basename(f) for f in glob.glob("queries/*.sparql")])
+    output:
+        "ground-truth.done"
+    shell:
+        "echo 'done' > ground-truth.done"
+
+rule run_blazegraph_single:
+    input:
+        "embedded-blazegraph-jar-with-dependencies.jar",
+        "wdbench-blaze.jnl",
+        "queries/{query}"
+    output:
+        "ground-truth/{query}.dat"
+    shell:
+        "java -jar embedded-blazegraph-jar-with-dependencies.jar "
+        "--database=wdbench-blaze.jnl "
+        "--file=queries/{wildcards.query} "
+        "&> ground-truth/{wildcards.query}.dat "

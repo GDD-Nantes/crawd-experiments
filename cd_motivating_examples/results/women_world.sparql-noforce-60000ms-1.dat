@@ -1,0 +1,65 @@
+INFO: com.bigdata.util.config.LogUtil: Configure: jar:file:/benchmark/rawer-jar-with-dependencies.jar!/log4j.properties
+WARN	2024-07-22 17:26:49,259	0	com.bigdata.rdf.ServiceProviderHook	[main]	Running.
+[1;35mPath to database:[0m wdbench-blaze.jnl
+[1;35mSPARQL query:[0m PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT(COUNT(DISTINCT ?mayor )
+       AS ?cd_mayors )
+WHERE {
+  ?city wdt:P17 ?country .
+  ?city wdt:P6 ?mayor .
+  ?mayor wdt:P21 wd:Q6581072 .
+  ?country wdt:P30 ?continent .
+} 
+
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - WJ SampleSize: 171517.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - CRAWD SampleSize: 22095.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ SampleSize: 44199.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ success: 44188.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ fail: 11.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - N̂: 3424.237749027794
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - Nb Total Scans: 326382
+{?cd_mayors-> ""3124.6810675715255"^^http://www.w3.org/2001/XMLSchema#double" ; }
+[1;35mExecution time: [0m 60004 ms
+[1;35mNumber of Results: [0m 1
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - WJ SampleSize: 204998.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - CRAWD SampleSize: 26261.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ SampleSize: 52537.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ success: 52517.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ fail: 20.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - N̂: 3409.6482404706394
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - Nb Total Scans: 389076
+{?cd_mayors-> ""3104.553353203446"^^http://www.w3.org/2001/XMLSchema#double" ; }
+[1;35mExecution time: [0m 60002 ms
+[1;35mNumber of Results: [0m 1
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - WJ SampleSize: 204275.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - CRAWD SampleSize: 26034.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ SampleSize: 52081.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ success: 52065.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ fail: 16.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - N̂: 3383.5616546322367
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - Nb Total Scans: 386779
+{?cd_mayors-> ""3091.815756537348"^^http://www.w3.org/2001/XMLSchema#double" ; }
+[1;35mExecution time: [0m 60002 ms
+[1;35mNumber of Results: [0m 1
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - WJ SampleSize: 206207.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - CRAWD SampleSize: 26583.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ SampleSize: 53183.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ success: 53163.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ fail: 20.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - N̂: 3424.7977081282406
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - Nb Total Scans: 392564
+{?cd_mayors-> ""3123.645109687517"^^http://www.w3.org/2001/XMLSchema#double" ; }
+[1;35mExecution time: [0m 60001 ms
+[1;35mNumber of Results: [0m 1
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - WJ SampleSize: 203099.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - CRAWD SampleSize: 26282.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ SampleSize: 52578.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ success: 52562.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - ∑Fµ fail: 16.0
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - N̂: 3441.7740707733674
+[main] DEBUG fr.gdd.sage.rawer.accumulators.CountDistinctCRAWD - Nb Total Scans: 387346
+{?cd_mayors-> ""3133.589472949974"^^http://www.w3.org/2001/XMLSchema#double" ; }
+[1;35mExecution time: [0m 60002 ms
+[1;35mNumber of Results: [0m 1

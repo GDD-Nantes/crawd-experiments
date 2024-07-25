@@ -13,7 +13,7 @@ subsequent count queries to that of the provided `--query` or
 `--file`.
 
 To run the experiment, do not forget to symlink
-`rawer-jar-with-dependencies.jar` and `wdbench.jnl` in this directory. Then, we use
+`rawer-jar-with-dependencies.jar` and `wdbench-blaze.jnl` in this directory. Then, we use
 [snakemake](https://snakemake.github.io/):
 `snakemake -c1 just_do_it.dat`. 
 The results are located in the [results directory](./results).
