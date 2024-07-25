@@ -6,18 +6,18 @@ Count-distinct SPARQL queries compute the number of unique values in the results
 However, counting the exact number of distinct values is often computationally demanding and time-consuming. 
 As a result, these queries often fail on public SPARQL endpoints due to fair use policies. 
 In this paper, we propose CRAWD, a new sampling-based approach designed to approximate count-distinct SPARQL queries. 
-CRAWD significantly im-proves sampling efficiency and allows feasible execution of count-distinct SPARQL queries on public SPARQL endpoints, considerably improving existing methods.
+CRAWD significantly improves sampling efficiency and allows feasible execution of count-distinct SPARQL queries on public SPARQL endpoints, considerably improving existing methods.
 
-* [Watdiv Count Distinct Queries](/count-distinct-watdiv/queries/top5_cd_original)
-* [Watdiv CD Void Queries](count-distinct-watdiv/queries/VOID)
-* [WdBench Count Distinct Queries](/count-distinct-wdbench/top30q)
-* [WdBench CD Void Queries](/count-distinct-wdbench/void_queries)
+* [WatDiv10M Count Distinct Queries](/count-distinct-watdiv/queries/top5_cd_original)
+* [WatDiv10M CD Void Queries](count-distinct-watdiv/queries/VOID)
+* [WDBench Count Distinct Queries](/count-distinct-wdbench/top30q)
+* [WDBench CD Void Queries](/count-distinct-wdbench/void_queries)
 
 ## Methodology for benchmarking
 As there is no dedicated benchmark for count-distinct aggregate queries, we used
-the synthetic benchmark  WatDiv and the real-world benchmark WDBench to build two workloads.
-The WatDiv workload consists of 60  queries, and  WDBench workload consists of 43 queries.
-Watdiv queries range from 1 to 12 triple patterns, while  WDBench queries have 1 to 5 triple patterns.
+the synthetic benchmark  WatDiv10M and the real-world benchmark WDBench to build two workloads.
+The WatDiv10M workload consists of 60  queries, and  WDBench workload consists of 43 queries.
+WatDiv10M queries range from 1 to 12 triple patterns, while  WDBench queries have 1 to 5 triple patterns.
 
 ### For [Watdiv](https://github.com/dsg-uwaterloo/watdiv)
 From the original 12400 queries, we selected queries as follows:
