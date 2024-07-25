@@ -34,3 +34,14 @@ You can install all the required Python libraries by running the following comma
     - Maven version: 3.8.1
     - Blazegraph version: 2.1.5
 
+### Steps to reproduce the experiments
+1. Clone the repository
+2. Install the requirements
+3. 
+```sh
+cd sage-jena
+
+# Install it in your local maven repository
+mvn clean install -Dmaven.test.skip=true
+```
+4. Now, you can continue with README.md in count-distinct-watdiv and count-distinct-wdbench directories.
