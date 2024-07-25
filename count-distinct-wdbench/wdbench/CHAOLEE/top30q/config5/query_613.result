@@ -1,0 +1,51 @@
+[MVNVM] Using maven: 3.8.8
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< fr.gdd.sage:rawer >--------------------------
+[INFO] Building rawer 0.0.4
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:3.3.0:java (default-cli) @ rawer ---
+INFO: com.bigdata.util.config.LogUtil: Configure: jar:file:/home/ubuntu/.m2/repository/fr/gdd/sage/sage-blazegraph/0.0.4/sage-blazegraph-0.0.4.jar!/log4j.properties
+WARN	2024-07-18 22:53:37,368	0	com.bigdata.rdf.ServiceProviderHook	[fr.gdd.sage.rawer.cli.RawerCLI.main()]	Running.
+Path to database: /GDD/Thi/run_blazegraph_wdbench/wdbench-blaze/blazegraph.jnl
+SPARQL query: SELECT (COUNT(DISTINCT ?x2) AS ?cd) WHERE {
+?x1 <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+?x2 <http://www.wikidata.org/prop/direct/P50> ?x1 .
+}
+
+
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - BigN SampleSize: 18656.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - ChaoLee SampleSize: 3873
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - Nb Total Scans: 100002
+{?cd-> ""4237593.193840226"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  5478 ms
+Number of Results:  1
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - BigN SampleSize: 18428.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - ChaoLee SampleSize: 3884
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - Nb Total Scans: 100000
+{?cd-> ""4736189.409894639"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  4007 ms
+Number of Results:  1
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - BigN SampleSize: 18420.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - ChaoLee SampleSize: 3885
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - Nb Total Scans: 100009
+{?cd-> ""3965042.7494085645"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  4007 ms
+Number of Results:  1
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - BigN SampleSize: 18736.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - ChaoLee SampleSize: 3870
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - Nb Total Scans: 100018
+{?cd-> ""3989385.9458313445"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  4061 ms
+Number of Results:  1
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - BigN SampleSize: 18547.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - ChaoLee SampleSize: 3879
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctChaoLee - Nb Total Scans: 100012
+{?cd-> ""4369019.809894741"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  3883 ms
+Number of Results:  1

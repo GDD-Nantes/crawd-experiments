@@ -1,0 +1,524 @@
+[MVNVM] Using maven: 3.8.8
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< fr.gdd.sage:rawer >--------------------------
+[INFO] Building rawer 0.0.4
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:3.3.0:java (default-cli) @ rawer ---
+INFO: com.bigdata.util.config.LogUtil: Configure: jar:file:/home/ubuntu/.m2/repository/fr/gdd/sage/sage-blazegraph/0.0.4/sage-blazegraph-0.0.4.jar!/log4j.properties
+WARN	2024-07-18 15:54:38,463	0	com.bigdata.rdf.ServiceProviderHook	[fr.gdd.sage.rawer.cli.RawerCLI.main()]	Running.
+Path to database: /GDD/Thi/run_blazegraph_wdbench/wdbench-blaze/blazegraph.jnl
+SPARQL query: SELECT (COUNT(DISTINCT ?x1) as ?cd) WHERE {
+?x1 <http://www.wikidata.org/prop/direct/P106> ?x2 . ?x1 <http://www.wikidata.org/prop/direct/P27> ?x3 . 
+
+}
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] ERROR JenaXMLInput - Problem setting StAX property - name: "http://javax.xml.XMLConstants/property/accessExternalDTD" - value: "" - error: Unable to access unsupported property http://javax.xml.XMLConstants/property/accessExternalDTD
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2119.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5607704.955167532
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2112.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1861.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5635991.600378788
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2118.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5467191.8753541075
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2124.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1856.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5438243.854990584
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2130.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5478712.307981221
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2101.0
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1864.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3728.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3728.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5725957.406949072
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2124.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5700606.807909604
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2110.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1861.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5633566.015165877
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2128.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1855.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5478084.934210527
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2129.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1855.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5423547.419445749
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2133.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5522873.652133145
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2124.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5534700.822975518
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2116.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1859.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5760887.854442344
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - WJ SampleSize: 27568.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 24149.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 48298.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ success: 48298.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - N̂: 5569545.132907719
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - Nb Total Scans: 100015
+{?cd-> ""3286982.662050204"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  2511 ms
+Number of Results:  1
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2138.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1852.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5506124.656688494
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2136.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1852.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5365489.290262172
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2097.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1865.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3730.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3730.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5615732.95565093
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2125.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1856.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5404832.976941177
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2110.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1861.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5441314.020853081
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2119.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5526489.917885795
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2120.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5552874.7716981135
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2121.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5492300.686468647
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2141.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1851.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5509892.325081738
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2103.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1863.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3726.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3726.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5586072.070375654
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2130.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1855.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5580668.681690141
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2135.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5440932.0
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2113.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1860.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5580966.387127307
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - WJ SampleSize: 27588.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 24141.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 48282.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ success: 48282.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - N̂: 5507731.471509352
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - Nb Total Scans: 100011
+{?cd-> ""3289409.6474783737"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  1520 ms
+Number of Results:  1
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2124.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5650449.184557439
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2135.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5536892.0
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2115.0
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2100.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1865.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1860.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3730.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3730.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5562127.438297872
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - N̂: 5549174.88
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2122.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5561157.851083883
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2140.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1851.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5449281.41682243
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2133.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5478690.662916081
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2126.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1856.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5492874.976481656
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2160.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1845.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3690.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3690.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5313460.690740741
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2130.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1855.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5532576.05258216
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2118.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5550379.862134089
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2130.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5486407.128638498
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2126.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1856.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3712.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5542985.414863594
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - WJ SampleSize: 27659.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 24121.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 48242.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ success: 48242.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - N̂: 5515518.444339998
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - Nb Total Scans: 100022
+{?cd-> ""3282816.542059849"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  1299 ms
+Number of Results:  1
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2106.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1862.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5644266.045584045
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2121.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5486505.082508251
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2134.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5520285.613870665
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2112.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1861.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3722.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5604949.994318182
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2113.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1860.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5643020.217699952
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2122.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1857.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3714.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5541848.275212064
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2109.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1862.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5449722.645803698
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2130.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1855.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3710.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5494101.949295775
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2118.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1859.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5577464.322946176
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2135.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5440932.0
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2137.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1852.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5525957.858680393
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2145.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1849.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3698.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3698.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5455681.655944056
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2107.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1862.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3724.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5736877.740863787
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - WJ SampleSize: 27589.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 24142.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 48284.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ success: 48284.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - N̂: 5547483.460219652
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - Nb Total Scans: 100015
+{?cd-> ""3294710.833257218"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  1273 ms
+Number of Results:  1
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2133.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5396087.68307548
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2117.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1859.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3718.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5500742.684931506
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2138.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1852.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3704.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5605783.021515435
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2132.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1854.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3708.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5465885.200750469
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2133.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5447954.670417253
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2114.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1860.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5531808.026490066
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7694
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2134.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1853.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3706.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5487643.92502343
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2145.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1849.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3698.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3698.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5320053.715617715
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2118.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1858.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3716.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5461388.062322946
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7692
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2142.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1851.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5363850.405228758
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7695
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2143.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1850.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3700.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3700.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5466509.392440504
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2140.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1851.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3702.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5590970.392523364
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[] DEBUG CountDistinctCRAWD - WJ SampleSize: 2113.0
+[] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 1860.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ success: 3720.0
+[] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[] DEBUG CountDistinctCRAWD - N̂: 5598419.026975864
+[] DEBUG CountDistinctCRAWD - Nb Total Scans: 7693
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - WJ SampleSize: 27702.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - CRAWD SampleSize: 24104.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ SampleSize: 48208.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ success: 48208.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - ∑Fµ fail: 0.0
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - N̂: 5479593.120785503
+[fr.gdd.sage.rawer.cli.RawerCLI.main()] DEBUG CountDistinctCRAWD - Nb Total Scans: 100014
+{?cd-> ""3279177.4927113187"^^http://www.w3.org/2001/XMLSchema#double" ; }
+Execution time:  1255 ms
+Number of Results:  1
