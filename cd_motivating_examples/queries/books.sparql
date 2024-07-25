@@ -1,0 +1,13 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+# PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT(COUNT(DISTINCT ?book )
+       AS ?cd_books )
+WHERE {
+  ?book wdt:P31 wd:Q571 .
+  ?book wdt:P50 ?author .
+  ?author wdt:P19 ?city .
+  ?city wdt:P17 ?country .
+  ?country wdt:P30 wd:Q46 .
+}
