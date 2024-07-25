@@ -11,10 +11,13 @@ Results after 10% sampling of datasize for WatDiv and DBpedia, 1% for WDBnech
 
 # Main BGP experiment
 
-* Variation of relative error according the budget configuration for watdiv:
+* Variation of relative error according the budget configuration for WatDiv10M and WDBench:
 
 ![wagg2](/plots_paper/watdiv_agg_2.png)
+![wdagg](/plots_paper/wdbench_agg_2.png)
 
 * Relative error queries on config 9: b=1M / bµ= 10*#tp
 
 ![wperq](/plots_paper/watdiv_per_query.png)
+![wdperq](/plots_paper/wdbench_per_query.png)
+
