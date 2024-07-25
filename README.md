@@ -19,7 +19,7 @@ the synthetic benchmark  WatDiv and the real-world benchmark WDBench to build tw
 The WatDiv workload consists of 60  queries, and  WDBench workload consists of 43 queries.
 Watdiv queries range from 1 to 12 triple patterns, while  WDBench queries have 1 to 5 triple patterns.
 
-### For Watdiv
+### For [Watdiv](https://github.com/dsg-uwaterloo/watdiv)
 From the original 12400 queries, we selected queries as follows:
 
 - We transformed WatDiv's original queries into count aggregate queries.
@@ -28,7 +28,7 @@ From the original 12400 queries, we selected queries as follows:
 - We transformed these queries into count-distinct aggregate queries. Using query variables, we rewrote the queries into several count-distinct aggregate queries and computed the number of distinct results per variable.
 - For each group of queries, we selected the top 5 queries in terms of distinct results.
 
-### For WDBench
+### For [WDBench](https://github.com/MillenniumDB/WDBench)
 From the 681 queries with multiple BPGs, we selected 30
 queries as follows:
 -  Since WDBench queries could have a cartesian product,  we pruned these queries, resulting in 260 queries.
