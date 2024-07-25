@@ -16,7 +16,7 @@ CRAWD significantly improves sampling efficiency and allows feasible execution o
 ## Methodology for benchmarking
 As there is no dedicated benchmark for count-distinct aggregate queries, we used
 the synthetic benchmark  WatDiv10M and the real-world benchmark WDBench to build two workloads.
-The WatDiv10M workload consists of 60  queries, and  WDBench workload consists of 43 queries.
+The WatDiv10M workload consists of 58  queries, and  WDBench workload consists of 43 queries.
 WatDiv10M queries range from 1 to 12 triple patterns, while  WDBench queries have 1 to 5 triple patterns.
 
 ### For [Watdiv](https://github.com/dsg-uwaterloo/watdiv)
