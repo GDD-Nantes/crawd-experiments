@@ -44,9 +44,9 @@ processing, we are guaranteed to get an approximate result before
 available in the [results folder](./results/). With the configuration
 involving #tp x 100 scans for each sampled result, and a single
 thread, CRAWD provides at 60s:
-- `books.sparql`: estimated 3509 vs 3542 expected
-- `women.sparql`: estimated 2849 vs 2877 expected
-- `people.sparql`: estimated 1796949 vs 1804559 expected
+- [X] `books.sparql`: estimated 3509 vs 3542 expected
+- [X] `women.sparql`: estimated 2849 vs 2877 expected
+- [X] `people.sparql`: estimated 1796949 vs 1804559 expected
 
 While these estimate are already good, a end-user could decide to
 further refine them by asking for additional rounds of sampling. 
