@@ -1,0 +1,46 @@
+import os
+import glob
+
+##########################################################################
+
+SL = [1, 10, 100]
+L = [10000, 100000, 1000000]
+
+def get_nb_tps_in_file (wildcards) :
+    with open(f"queries/{wildcards.query}", 'r') as file:
+        contents = file.read()
+    actual_sublimit = int(contents.count(" .")) * int(wildcards.sublimit)
+    return str(actual_sublimit)
+
+rule run_rawer_all:
+    input:
+        expand("results/{query}-{limit}-{sublimit}.dat",
+               query=[os.path.basename(f) for f in glob.glob("queries/*.sparql")],
+               limit=L,
+               sublimit=SL)
+    output:
+        "just_do_it.dat"
+    shell:
+        "echo 'done' > just_do_it.dat"
+
+rule run_rawer_single:
+    input:
+        "rawer-jar-with-dependencies.jar",
+        "wdbench-blaze.jnl",
+        "queries/{query}"
+    params:
+        actual_sublimit=get_nb_tps_in_file
+    output:
+        "results/{query}-{limit}-{sublimit}.dat"
+    shell:
+        "java -jar rawer-jar-with-dependencies.jar "
+        "--database=wdbench-blaze.jnl "
+        "--file=queries/{wildcards.query} "
+        "--limit={wildcards.limit} "
+        "-sl={params.actual_sublimit} "
+        "--executions=5 "
+        "--seed=1 "
+        "--force-order "
+        "--threads=10 "
+        "--report "
+        "&> results/{wildcards.query}-{wildcards.limit}-{wildcards.sublimit}.dat "
