@@ -16,6 +16,7 @@ Results after 10% sampling of datasize for WatDiv and DBpedia, 1% for WDBnech
 ![wagg2](/plots_paper/watdiv_agg_2.png)
 
 * WDBench:
+
 ![wdagg](/plots_paper/wdbench_agg_2.png)
 
 * Relative error queries on config 9 for WatDiv10M: b=1M / bµ= 10*#tp
