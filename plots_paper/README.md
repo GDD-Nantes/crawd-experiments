@@ -1,6 +1,13 @@
-# CRAWD vs Chao_lee  with BGP queries 
-
-## QC6 experiment 
+# CRAWD vs Chao_lee  
+## On single triple pattern queries( VoID queries)
+### QB3: count distinct predicates in dataset
+![spo_p](/plots_paper/CDp_exact_merged.png)
+### QB4: count distinct subjects in dataset
+![spo_s](/plots_paper/CDs_merged.png)
+### QB5: count distinct objects in dataset
+![spo_o](/plots_paper/CDo_merged.png)
+## with BGP queries 
+### QC6
 
 We rely on queries like [QC6](/count-distinct-watdiv/queries/VOID/c6_pc10.sparql)
 
