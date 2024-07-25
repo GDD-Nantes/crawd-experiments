@@ -9,9 +9,9 @@ In this paper, we propose CRAWD, a new sampling-based approach designed to appro
 CRAWD significantly im-proves sampling efficiency and allows feasible execution of count-distinct SPARQL queries on public SPARQL endpoints, considerably improving existing methods.
 
 * [Watdiv Count Distinct Queries](/count-distinct-watdiv/queries/top5_cd_original)
-* [Watdiv Void Queries](count-distinct-watdiv/queries/VOID)
+* [Watdiv CD Void Queries](count-distinct-watdiv/queries/VOID)
 * [WdBench Count Distinct Queries](/count-distinct-wdbench/top30q)
-* [WdBench Void Queries](/count-distinct-wdbench/void_queries)
+* [WdBench CD Void Queries](/count-distinct-wdbench/void_queries)
 
 ## Methodology for benchmarking
 As there is no dedicated benchmark for count-distinct aggregate queries, we used
