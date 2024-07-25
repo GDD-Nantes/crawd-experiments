@@ -4,12 +4,12 @@ from snakemake.utils import validate
 import json
 
 # Directory for input SPARQL files
-QUERY_DIR = "./count-distinct-wdbench/wdbench/void_queries"
+QUERY_DIR = "./count-distinct-wdbench/void_queries"
 QUERY_FILES = [os.path.splitext(f)[0] for f in os.listdir(QUERY_DIR) if f.endswith(".sparql")]
-TRIPLE_COUNT_FILE = "./count-distinct-wdbench/wdbench/triple_count.json"
-RESULT_DIR = "./count-distinct-wdbench/wdbench/CRAWD/void_queries"
+TRIPLE_COUNT_FILE = "./count-distinct-wdbench/triple_count.json"
+RESULT_DIR = "./count-distinct-wdbench/CRAWD/void_queries"
 
-with open("./count-distinct-wdbench/wdbench/wdbench_config.json") as f1:
+with open("./count-distinct-wdbench/wdbench_config.json") as f1:
     CONFIG = json.load(f1)
 with open(TRIPLE_COUNT_FILE) as f2:
     TRIPLE_COUNTS = json.load(f2)
@@ -33,7 +33,7 @@ rule run_sparql_query:
     input:
         query_file=f"{QUERY_DIR}/{{query}}.sparql",
         triple_counts=TRIPLE_COUNT_FILE,
-        config_file="./count-distinct-wdbench/wdbench/wdbench_config.json"
+        config_file="./count-distinct-wdbench/wdbench_config.json"
     output:
         f"{RESULT_DIR}/{{config}}/{{query}}.result"
     run:
