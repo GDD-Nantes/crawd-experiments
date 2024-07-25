@@ -54,7 +54,7 @@ You can find detail for each subdirectory in their README. The repository is str
 - [cd_bad_queries](./cd_bad_queries_wdbench): details of the queries that have problem on JOIN's order in WDBench.
 - [cd_motivating_example](./cd_motivating_examples): results for the motivating example in the introduction of the paper.
 - [frequencies_of_frequency](./frequencies_of_frequencies): the code and data for the experiments on the frequencies of frequency of single triple patterns.
-
+- [data_analysis](./data_analysis.ipynb): the notebook for the data analysis and plotting of the results.
 
 ### Requirements
 You can install all the required Python libraries by running the following command:
@@ -79,3 +79,4 @@ cd sage-jena
 mvn clean install -Dmaven.test.skip=true
 ```
 4. Now, you can continue with README.md in [count-distinct-watdiv](./count-distinct-watdiv/README.md) and [count-distinct-wdbench](./count-distinct-wdbench/README.md) directories.
+
