@@ -47,13 +47,13 @@ top 10 classes with the highest number of distinct objects per class.
 ## Repository Structure
 
 You can find detail for each subdirectory in their README. The repository is structured as follows:
-- count-distinct-watdiv: instruction, queries, results for the experiments on the WatDiv benchmark.
-- count-distinct-wdbench: instruction, queries, results for the experiments on the WDBench benchmark.
-- sage-jena/rawer : the implementation of the CRAWD algorithm in blazegraph.
-- plots_paper: the plots used in the paper and more plots for the experiments.
-- cd_bad_queries: details of the queries that have problem on JOIN's order.
-- cd_motivating_example: results for the motivating example in the introduction of the paper.
-- frequencies_of_frequency: the code and data for the experiments on the frequencies of frequency of single triple patterns.
+- [count-distinct-watdiv](./count-distinct-watdiv): instruction, queries, results for the experiments on the WatDiv benchmark.
+- [count-distinct-wdbench](./count-distinct-wdbench): instruction, queries, results for the experiments on the WDBench benchmark.
+- [sage-jena/rawer](./sage-jena/rawer) : the implementation of the CRAWD algorithm in blazegraph.
+- [plots_paper](./plots_paper): the plots used in the paper and more plots for the experiments.
+- [cd_bad_queries](./cd_bad_queries_wdbench): details of the queries that have problem on JOIN's order in WDBench.
+- [cd_motivating_example](./cd_motivating_examples): results for the motivating example in the introduction of the paper.
+- [frequencies_of_frequency](./frequencies_of_frequencies): the code and data for the experiments on the frequencies of frequency of single triple patterns.
 
 
 ### Requirements
@@ -78,4 +78,4 @@ cd sage-jena
 # Install it in your local maven repository
 mvn clean install -Dmaven.test.skip=true
 ```
-4. Now, you can continue with README.md in count-distinct-watdiv and count-distinct-wdbench directories.
+4. Now, you can continue with README.md in [count-distinct-watdiv](./count-distinct-watdiv/README.md) and [count-distinct-wdbench](./count-distinct-wdbench/README.md) directories.
