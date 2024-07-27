@@ -78,5 +78,39 @@ cd sage-jena
 # Install it in your local maven repository
 mvn clean install -Dmaven.test.skip=true
 ```
-4. Now, you can continue with README.md in [count-distinct-watdiv](./count-distinct-watdiv/README.md) and [count-distinct-wdbench](./count-distinct-wdbench/README.md) directories.
+4. Now, depend on your interest, if you want to reproduce the experiments on WDBench:
+- For CRAWD:
+```bash
+snakemake -F -p -s ./count-distinct-wdbench/snakemake_files/crawd_config.smk -c1
+```
+- For the baseline (Chao-Lee):
+```bash
+snakemake -F -p -s ./count-distinct-wdbench/snakemake_files/chao_lee_config.smk -c1
+```
+- The result for each query will be saved in the `CRAWD` of `CHAOLEE` directory respectively inside the `count-distinct-wdbench` directory.
+- Run the following command to extract detailed results for each query to csv files:
+```bash
+python python_scripts/1query_1scv.py
+```
+- Finally, you can merge all the results in a single csv file by running the following command:
+    - For example, with CRAWD:
+```bash
+awk '(NR==1) || (FNR>1)' /count-distinct-wdbench/CRAWD/***/*.csv > CRAWD_all_results.csv
+```
+- For aggregating the results of all queries, you can run the following command:
+```bash
+python python_scripts/aggregate_all_results.py
+```
+5. If you want to reproduce the experiments on WatDiv10M, run the following command:
+- For CRAWD:
+```bash
+snakemake -F -p -s ./count-distinct-watdiv/snakemake_files/crawd_config.smk -c1
+```
+- For the baseline (Chao-Lee):
+```bash
+snakemake -F -p -s ./count-distinct-watdiv/snakemake_files/chao_lee_config.smk -c1
+```
+- For WatDiv, the final results will be saved in `output` directory inside the `count-distinct-watdiv` directory.
+
+
 
