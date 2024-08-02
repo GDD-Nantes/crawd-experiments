@@ -8,10 +8,6 @@ As a result, these queries often fail on public SPARQL endpoints due to fair use
 In this paper, we propose CRAWD, a new sampling-based approach designed to approximate count-distinct SPARQL queries. 
 CRAWD significantly improves sampling efficiency and allows feasible execution of count-distinct SPARQL queries on public SPARQL endpoints, considerably improving existing methods.
 
-* [WatDiv10M Count Distinct Queries](./count-distinct-watdiv/queries/top5_cd_original)
-* [WatDiv10M CD Void Queries](./count-distinct-watdiv/queries/VOID)
-* [WDBench Count Distinct Queries](./count-distinct-wdbench/top30q)
-* [WDBench CD Void Queries](./count-distinct-wdbench/void_queries)
 
 ## Methodology for benchmarking
 As there is no dedicated benchmark for count-distinct aggregate queries, we used
@@ -42,6 +38,11 @@ SPORTAL: QB3 (count-distinct predicates), QB4
 also added 10 queries that count distinct objects per class for the
 top 10 classes with the highest number of distinct objects per class.
 
+### You can access the queries used, the ground truth, all the results in the experiments directly by following the links below:
+* [WatDiv10M Count Distinct Queries](./count-distinct-watdiv/queries/top5_cd_original)
+* [WatDiv10M CD Void Queries](./count-distinct-watdiv/queries/VOID)
+* [WDBench Count Distinct Queries](./count-distinct-wdbench/top30q)
+* [WDBench CD Void Queries](./count-distinct-wdbench/void_queries)
 
 
 ## Repository Structure
@@ -87,7 +88,7 @@ snakemake -F -p -s ./count-distinct-wdbench/snakemake_files/crawd_config.smk -c1
 ```bash
 snakemake -F -p -s ./count-distinct-wdbench/snakemake_files/chao_lee_config.smk -c1
 ```
-- The result for each query will be saved in the `CRAWD` of `CHAOLEE` directory respectively inside the `count-distinct-wdbench` directory.
+- The result for each query will be saved in the `CRAWD` or `CHAOLEE` directory respectively inside the `count-distinct-wdbench` directory.
 - Run the following command to extract detailed results for each query to csv files:
 ```bash
 python python_scripts/1query_1scv.py
