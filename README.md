@@ -1,5 +1,5 @@
 # CRAWD: Sampling-Based Estimation of Count-Distinct SPARQL Queries
-This repository contains the code and data for the paper "CRAWD: Sampling-Based Estimation of Count-Distinct SPARQL Queries" 
+This repository contains the experiments for the paper "CRAWD: Sampling-Based Estimation of Count-Distinct SPARQL Queries" 
 
 ## Abstract
 Count-distinct SPARQL queries compute the number of unique values in the results of a query executed on a Knowledge Graph. 
